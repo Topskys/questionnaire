@@ -303,3 +303,5 @@ git init
 git add .
 git commit -m "init"
 ```
+    "lint": "eslint",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'"
