@@ -21,7 +21,7 @@ export default [
   pluginReact.configs.flat.recommended,
   {
     // 忽略eslint检查的文件
-    ignores: ['node_modules', 'dist', 'public'],
+    ignores: ['node_modules', 'dist', 'public','*.md'],
   }, 
   // {
   //   rules: {
