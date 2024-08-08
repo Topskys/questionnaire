@@ -291,10 +291,11 @@ npm i -D commitizen
 ```
 
 
-,
+
     "lint": "eslint ./ --ext .js,.ts,.jsx,.tsx,.json --max-warnings=0",
     "format": "prettier --write 'src/**/*.{js,ts,jsx,tsx}'"
-
+    "lint": "eslint",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'"
 
 ## 初始化Git仓库
 
@@ -303,5 +304,3 @@ git init
 git add .
 git commit -m "init"
 ```
-    "lint": "eslint",
-    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'"
