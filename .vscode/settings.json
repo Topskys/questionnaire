@@ -1,0 +1,9 @@
+{
+    "editor.formatOnSave": true, // 保存时自动格式化
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit" // 保存时是否自动修复eslint错误，手动触发
+    },
+    "files.associations": { // 配置json文件可写注释
+        "*.json": "jsonc"
+    }
+}
