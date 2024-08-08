@@ -23,6 +23,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
+    "format1": "prettier --config .prettierrc '.' --write",
+    "format-watch": "onchange -d 1000 '**/*' -- prettier --config .prettierrc --write {{changed}}",
     "prepare": "husky"
   },
   "eslintConfig": {
@@ -54,6 +56,7 @@
     "globals": "^15.9.0",
     "husky": "^9.1.4",
     "lint-staged": "^15.2.8",
+    "onchange": "^7.1.0",
     "prettier": "^3.3.3",
     "typescript-eslint": "^8.0.1"
   }

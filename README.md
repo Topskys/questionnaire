@@ -304,3 +304,16 @@ git init
 git add .
 git commit -m "init"
 ```
+
+ESLint具有代码检查和代码格式化功能，为避免ESLint规则冲突Perttier的代码格式化，需要eslint插件来解决冲突，让eslint正确地打印出错误
+```json
+{
+  // 关闭eslint所有可能干扰Perttier规则的eslint规则，确保将其放到最后，能够覆盖其他配置集
+  "eslint-config-prettier": "^9.1.0", 
+  // 将Perttier规则转化为eslint的规则
+  "eslint-plugin-prettier": "^5.2.1",
+  // 检查React代码
+  "eslint-plugin-react": "^7.35.0", 
+}
+```
+
