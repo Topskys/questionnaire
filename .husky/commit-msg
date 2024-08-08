@@ -1,2 +1,2 @@
-# 执行git commit的message相关效验
-npx --no -- commitlint --edit "$1"
+# 执行git commit时根据 commitlint进行message 规则校验
+npx --no -- commitlint --edit "$1" 
