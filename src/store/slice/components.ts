@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ComponentPropsType } from '../../components/QuestionComponents'
 import { produce } from 'immer'
 import cloneDeep from 'lodash.clonedeep'
 import { nanoid } from 'nanoid'
+import { ComponentPropsType } from '../../components/QuestionComponents'
 
 export type ComponentInfoType = {
   fe_id: string // 组件id，防止跟MongoDB生成_id一致，故加前缀fe
@@ -126,7 +126,27 @@ export const componentsSlice = createSlice({
       copiedComponent.fe_id = nanoid()
       // 插入components
       insertNewComponent(draft, copiedComponent)
+    }),
+
+    // 选中上一个
+    selectPrevComponent: produce((draft: ComponentsStateType) => {
+      const { selectedId, componentList = [] } = draft
+      const selectedIndex = componentList.findIndex(c => c.fe_id === selectedId)
+      if (selectedIndex < 0) return // 未选中
+      if (selectedIndex <= 0) return // 已经选中第一个，无法再向上
+      draft.selectedId = componentList[selectedIndex - 1].fe_id
+    }),
+
+    // 选中下一个
+    selectNextComponent: produce((draft: ComponentsStateType) => {
+      const { selectedId, componentList = [] } = draft
+      const selectedIndex = componentList.findIndex(c => c.fe_id === selectedId)
+      if (selectedIndex < 0) return // 未选中组件
+      if (selectedIndex + 1 === componentList.length) return // 已经选中最后一个组件，无法再向下
+      draft.selectedId = componentList[selectedIndex + 1].fe_id
     })
+
+    // TODO: 撤销 重做  上移 下移
   }
 })
 
@@ -139,7 +159,8 @@ export const {
   changeComponentHidden,
   toggleComponentLocked,
   copySelectedComponent,
-  pasteCopiedComponent
+  pasteCopiedComponent,
+  selectPrevComponent
 } = componentsSlice.actions
 
 /**

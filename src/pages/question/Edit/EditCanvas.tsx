@@ -1,15 +1,15 @@
 import React, { FC, MouseEvent } from 'react'
-import styles from './EditCanvas.module.scss'
 import { Spin } from 'antd'
-import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
-
-import { changeSelectedId, ComponentInfoType } from '../../../store/slice/components'
-import { getComponentConfByType } from '../../../components/QuestionComponents'
 import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
+import styles from './EditCanvas.module.scss'
+import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
+import { changeSelectedId, ComponentInfoType } from '../../../store/slice/components'
+import { getComponentConfByType } from '../../../components/QuestionComponents'
+import useBindCanvasKeyPress from '../../../hooks/useBindCanvasKeyPress'
 
 type PropsType = {
-  loading: boolean
+  loading?: boolean
 }
 
 function getComponent(componentInfo: ComponentInfoType) {
@@ -21,8 +21,9 @@ function getComponent(componentInfo: ComponentInfoType) {
 }
 
 const EditCanvas: FC<PropsType> = ({ loading }) => {
-  const { componentList, selectedId } = useGetComponentInfo()
   const dispatch = useDispatch()
+  useBindCanvasKeyPress() // 注册快捷键
+  const { componentList, selectedId } = useGetComponentInfo()
 
   if (loading) {
     return (
