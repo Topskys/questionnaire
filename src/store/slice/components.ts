@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ComponentPropsType } from '../../components/QuestionComponents'
 import { produce } from 'immer'
+import cloneDeep from 'lodash.clonedeep'
+import { nanoid } from 'nanoid'
 
 export type ComponentInfoType = {
   fe_id: string // 组件id，防止跟MongoDB生成_id一致，故加前缀fe
@@ -14,11 +16,13 @@ export type ComponentInfoType = {
 export type ComponentsStateType = {
   selectedId?: string // 当前选中的组件id
   componentList: Array<ComponentInfoType>
+  copiedComponent: ComponentInfoType | null // 复制组件
 }
 
 const INIT_STATE: ComponentsStateType = {
   componentList: [], // 组件列表
-  selectedId: '' // 当前选中的组件id
+  selectedId: '', // 当前选中的组件id
+  copiedComponent: null // 复制组件
 }
 
 export const componentsSlice = createSlice({
@@ -37,17 +41,7 @@ export const componentsSlice = createSlice({
     addComponent: produce(
       (draft: ComponentsStateType, action: PayloadAction<ComponentInfoType>) => {
         const newComponent = action.payload
-        const { selectedId, componentList } = draft
-        const index = componentList.findIndex(c => c.fe_id === selectedId)
-        // 未选中组件时，添加到组件列表末尾
-        if (index < 0) {
-          draft.componentList.push(newComponent)
-        } else {
-          // 如果当前选中组件存在，则插入到当前选中组件之后
-          draft.componentList.splice(index + 1, 0, newComponent)
-        }
-        // 选中当前插入的组件
-        draft.selectedId = newComponent.fe_id
+        insertNewComponent(draft, newComponent)
       }
     ),
     // 修改组件属性
@@ -89,6 +83,7 @@ export const componentsSlice = createSlice({
           // 因为要使用isHidden判断，故从外部引入参数
           // 要隐藏
           newSelectedId = getNextSelectedId(fe_id, componentList)
+          console.log('要隐藏', newSelectedId)
         } else {
           // 要显示
           newSelectedId = fe_id
@@ -112,7 +107,26 @@ export const componentsSlice = createSlice({
           currentComponent.isLocked = !currentComponent.isLocked
         }
       }
-    )
+    ),
+
+    // 拷贝选中的组件
+    copySelectedComponent: produce((draft: ComponentsStateType) => {
+      const { selectedId, componentList = [] } = draft
+      const selectedComponent = componentList.find(c => c.fe_id === selectedId)
+      if (selectedComponent == null) return
+      // cnpm i lodash.clonedeep 深拷贝
+      draft.copiedComponent = cloneDeep(selectedComponent)
+    }),
+
+    // 粘贴组件
+    pasteCopiedComponent: produce((draft: ComponentsStateType) => {
+      const { copiedComponent } = draft
+      if (copiedComponent == null) return
+      // 需要修改fe_id
+      copiedComponent.fe_id = nanoid()
+      // 插入components
+      insertNewComponent(draft, copiedComponent)
+    })
   }
 })
 
@@ -123,7 +137,9 @@ export const {
   changeComponentProps,
   removeSelectedComponent,
   changeComponentHidden,
-  toggleComponentLocked
+  toggleComponentLocked,
+  copySelectedComponent,
+  pasteCopiedComponent
 } = componentsSlice.actions
 
 /**
@@ -151,6 +167,24 @@ export function getNextSelectedId(fe_id: string = '', componentList: ComponentIn
     }
   }
   return newSelectedId
+}
+
+/**
+ * @description 插入新组件工具
+ * @path ./util.ts
+ */
+export function insertNewComponent(draft: ComponentsStateType, newComponent: ComponentInfoType) {
+  const { selectedId, componentList } = draft
+  const index = componentList.findIndex(c => c.fe_id === selectedId)
+  // 未选中组件时，添加到组件列表末尾
+  if (index < 0) {
+    draft.componentList.push(newComponent)
+  } else {
+    // 如果当前选中组件存在，则插入到当前选中组件之后
+    draft.componentList.splice(index + 1, 0, newComponent)
+  }
+  // 选中当前插入的组件
+  draft.selectedId = newComponent.fe_id
 }
 
 export default componentsSlice.reducer
