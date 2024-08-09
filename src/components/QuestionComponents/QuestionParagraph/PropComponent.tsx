@@ -1,15 +1,17 @@
 import React, { FC, useEffect } from 'react'
-import { QuestionInputPropsType } from './interface'
-import { Form, Input } from 'antd'
+import { QuestionParagraphPropsType } from './interface'
+import { Checkbox, Form, Input } from 'antd'
+
+const { TextArea } = Input
 
 // 右侧-属性组件
-const PropComponent: FC<QuestionInputPropsType> = (props: QuestionInputPropsType) => {
-  const { title, placeholder, onChange, disabled } = props
+const PropComponent: FC<QuestionParagraphPropsType> = (props: QuestionParagraphPropsType) => {
+  const { text, isCenter, onChange, disabled } = props
   const [form] = Form.useForm()
 
   useEffect(() => {
-    form.setFieldsValue({ title, placeholder })
-  }, [title, placeholder])
+    form.setFieldsValue({ text, isCenter })
+  }, [text, isCenter])
 
   // 将发生变化的表单数据同步到父组件，在同步至redux中
   function handleValueChange() {
@@ -22,13 +24,13 @@ const PropComponent: FC<QuestionInputPropsType> = (props: QuestionInputPropsType
     <Form
       form={form}
       layout="vertical"
-      initialValues={{ title, placeholder }}
+      initialValues={{ text, isCenter }}
       onValuesChange={handleValueChange}
       disabled={disabled}
     >
       <Form.Item
         label={'标题'}
-        name="title"
+        name="text"
         rules={[
           {
             required: true,
@@ -36,10 +38,10 @@ const PropComponent: FC<QuestionInputPropsType> = (props: QuestionInputPropsType
           }
         ]}
       >
-        <Input />
+        <TextArea />
       </Form.Item>
-      <Form.Item label={'Placeholder'} name="placeholder">
-        <Input />
+      <Form.Item name="isCenter" valuePropName="checked">
+        <Checkbox>居中显示</Checkbox>
       </Form.Item>
     </Form>
   )
