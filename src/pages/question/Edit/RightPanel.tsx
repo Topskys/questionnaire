@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { FileTextOutlined,SettingOutlined } from '@ant-design/icons'
+import { FileTextOutlined, SettingOutlined } from '@ant-design/icons'
 import { Tabs } from 'antd'
 import ComponentProp from './ComponentProp'
 

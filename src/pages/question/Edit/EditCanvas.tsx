@@ -1,4 +1,4 @@
-import React, { FC,MouseEvent } from 'react'
+import React, { FC, MouseEvent } from 'react'
 import styles from './EditCanvas.module.scss'
 import { Spin } from 'antd'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
@@ -40,14 +40,14 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
   }
 
   // 点击组件，改变selectedId
-  const handleClick = (e: MouseEvent, id: string):void => {
+  const handleClick = (e: MouseEvent, id: string): void => {
     e.stopPropagation() // 阻止事件冒泡（事件往父级传送），会影响上级的clearSelectedId事件
     dispatch(changeSelectedId(id))
   }
 
   return (
     <div className={styles.canvas}>
-      {componentList.map(c => {
+      {componentList.filter(c=>!c.isHidden).map(c => {
         const { fe_id } = c
         const wrapperDefaultClassName = styles['component-wrapper']
         const selectedClassName = styles.selected
@@ -57,7 +57,7 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
         })
 
         return (
-          <div key={fe_id} className={wrapperClassName} onClick={(e) => handleClick(e,fe_id)}>
+          <div key={fe_id} className={wrapperClassName} onClick={e => handleClick(e, fe_id)}>
             <div className={styles.component}>{getComponent(c)}</div>
           </div>
         )

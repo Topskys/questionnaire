@@ -6,19 +6,20 @@ import { useDispatch } from 'react-redux'
 import { changeSelectedId } from '../../../store/slice/components'
 import LeftPanel from './LeftPanel'
 import RightPanel from './RightPanel'
+import EditHeader from './EditHeader'
 
 export default function Edit() {
   const { loading } = useLoadQuestionData()
-  const dispatch=useDispatch();
+  const dispatch = useDispatch()
 
   // 取消选中
-  function clearSelectedId(){
+  function clearSelectedId() {
     dispatch(changeSelectedId(''))
   }
 
   return (
     <div className={styles.container}>
-      <header style={{ height: '60px', backgroundColor: '#fff' }}></header>
+      <EditHeader></EditHeader>
       <main className={styles['content-wrapper']}>
         <div className={styles.content}>
           <div className={styles.left}>
