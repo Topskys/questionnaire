@@ -4,7 +4,7 @@ import { Form, Checkbox, Select } from 'antd'
 
 // 右侧-属性组件
 const PropComponent: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType) => {
-  const { text, level, isCenter, onChange } = props
+  const { text, level, isCenter, onChange,disabled } = props
   const [form] = Form.useForm()
 
   useEffect(() => {
@@ -24,6 +24,7 @@ const PropComponent: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType
       layout="vertical"
       initialValues={{ text, level, isCenter }}
       onValuesChange={handleValueChange}
+      disabled={disabled}
     >
       <Form.Item
         label="标题内容"

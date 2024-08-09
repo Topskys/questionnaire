@@ -3,6 +3,7 @@ export type QuestionInputPropsType = {
   placeholder?: string
 
   onChange?: (newProps: QuestionInputPropsType) => void
+  disabled?: boolean; // 锁定（用于isLocked）
 }
 
 export const QuestionInputDefaultProps: QuestionInputPropsType = {

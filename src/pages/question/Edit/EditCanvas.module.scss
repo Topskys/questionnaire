@@ -25,3 +25,8 @@ $selected: #1890ff; // 组件选中边框颜色
 .selected {
     border-color: $selected !important;
 }
+
+.locked{
+    opacity: .5;
+    cursor: not-allowed;
+}

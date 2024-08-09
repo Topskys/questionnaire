@@ -99,7 +99,18 @@ export const componentsSlice = createSlice({
       }
     }),
 
-    
+    // 锁定、解锁组件
+    toggleComponentLocked: produce((
+      draft: ComponentsStateType, action: PayloadAction<{ fe_id: string }>) => {
+      const { componentList = [] } = draft
+      const { fe_id } = action.payload
+      const currentComponent = componentList.find(c => c.fe_id === fe_id)
+      if (currentComponent) {
+        currentComponent.isLocked = !currentComponent.isLocked
+      }
+    }),
+
+
   },
 })
 
@@ -110,10 +121,11 @@ export const {
   changeComponentProps,
   removeSelectedComponent,
   changeComponentHidden,
+  toggleComponentLocked,
 } = componentsSlice.actions
 
 /**
- * @description 重新计算selectedId
+ * @description 重新计算selectedId工具
  * @path ./util.ts
  */
 export function getNextSelectedId(fe_id: string = '', componentList: ComponentInfoType[]) {

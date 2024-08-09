@@ -1,5 +1,8 @@
 # 在此可以不用加标头，选择运行脚本环境 #!/usr/bin/env sh
 
+# perttier代码格式化
+npm run format
+
 # 检查忽略代码
 npx lint-staged
 
@@ -7,6 +10,6 @@ npx lint-staged
 # npm run lint
 
 # perttier代码格式化
-npm run format
+#npm run format
 
 # git add .
