@@ -3,12 +3,14 @@ import QuestionInputConf, { QuestionInputPropsType } from './QuestionInput'
 import QuestionTitleConf, { QuestionTitlePropsType } from './QuestionTitle'
 import QuestionParagraphConf, { QuestionParagraphPropsType } from './QuestionParagraph'
 import QuestionInfoConf, { QuestionInfoPropsType } from './QuestionInfo'
+import QuestionTextareaConf, { QuestionTextareaPropsType } from './QuestionTextarea'
 
 // 统一组件的props类型
 export type ComponentPropsType = QuestionInputPropsType &
   QuestionTitlePropsType &
   QuestionParagraphPropsType &
-  QuestionInfoPropsType
+  QuestionInfoPropsType &
+  QuestionTextareaPropsType
 
 // 统一组件配置类型
 export type ComponentConfType = {
@@ -24,7 +26,7 @@ export const componentConfGroup = [
   {
     groupId: 'textGroup',
     groupName: '文本显示',
-    components: [QuestionInfoConf, QuestionTitleConf, QuestionParagraphConf]
+    components: [QuestionInfoConf, QuestionTitleConf, QuestionParagraphConf, QuestionTextareaConf]
   },
   {
     groupId: 'inputGroup',
@@ -38,7 +40,8 @@ const componentConfList: ComponentConfType[] = [
   QuestionInputConf,
   QuestionTitleConf,
   QuestionParagraphConf,
-  QuestionInfoConf
+  QuestionInfoConf,
+  QuestionTextareaConf
 ]
 
 export function getComponentConfByType(type: string) {
