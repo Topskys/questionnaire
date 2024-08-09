@@ -1,5 +1,5 @@
 module.exports = {
-    // root: true, // 防止ESLint在父目录中查找.eslintrc.js配置文件
+    root: true, // 防止ESLint在父目录中查找.eslintrc.js配置文件
     // env: {
     //     browser: true,
     //     es2021: true,
@@ -24,13 +24,18 @@ module.exports = {
     //     ecmaVersion: 'latest',
     //     sourceType: 'module',
     // },
-    // plugins: ['react', '@typescript-eslint'],
-    rules: {},
-    ignorePatterns: ['node_modules', 'dist','public'], // 忽略文件
+    plugins: ['react', '@typescript-eslint'],
+    // rules: {
+    //     "@typescript-eslint/no-explicit-any": "off", // 禁止使用any类型
+    //     "@typescript-eslint/no-require-imports": "off", // 禁止require导入
+    //     "no-unused-vars": "off", // 禁止未使用的变量
+    //     '@typescript-eslint/no-var-requires': 0, // 禁止使用require导入
+    // },
+    ignorePatterns: ['node_modules', 'dist', 'public'], // 忽略文件
     settings: {
         react: {
             pragma: 'React',
             version: 'detect'
-        }        
+        }
     }
 }
