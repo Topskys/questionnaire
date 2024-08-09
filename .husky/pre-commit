@@ -12,4 +12,4 @@ npx lint-staged
 # perttier代码格式化
 #npm run format
 
-# git add .
+git add .

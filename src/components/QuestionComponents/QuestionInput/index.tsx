@@ -13,5 +13,5 @@ export default {
   type: 'questionInput',
   Component,
   PropComponent,
-  defaultProps: QuestionInputDefaultProps,
+  defaultProps: QuestionInputDefaultProps
 }

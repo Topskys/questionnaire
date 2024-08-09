@@ -13,5 +13,5 @@ export default {
   type: 'questionTitle', // 要和后端统一
   Component, // 画布展示
   PropComponent, // 右侧-属性组件
-  defaultProps: QuestionTitleDefaultProps,
+  defaultProps: QuestionTitleDefaultProps
 }

@@ -20,7 +20,7 @@ module.exports = {
     // 使用tab缩进
     useTabs: false,
     // 后置逗号，多行对象、数组在最后一行增加逗号
-    trailingComma: 'es5',
+    trailingComma: 'none', // es5, all, none
     // ts解析器
     parser: 'typescript'
 }

@@ -4,7 +4,7 @@ import { Form, Input } from 'antd'
 
 // 右侧-属性组件
 const PropComponent: FC<QuestionInputPropsType> = (props: QuestionInputPropsType) => {
-  const { title, placeholder, onChange,disabled } = props
+  const { title, placeholder, onChange, disabled } = props
   const [form] = Form.useForm()
 
   useEffect(() => {
@@ -32,8 +32,8 @@ const PropComponent: FC<QuestionInputPropsType> = (props: QuestionInputPropsType
         rules={[
           {
             required: true,
-            message: '请输入标题',
-          },
+            message: '请输入标题'
+          }
         ]}
       ></Form.Item>
       <Form.Item label={'Placeholder'} name="placeholder">

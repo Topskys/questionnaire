@@ -3,8 +3,8 @@ import componentsReducer, { ComponentsStateType } from './slice/components'
 
 const store = configureStore({
   reducer: {
-    components: componentsReducer,
-  },
+    components: componentsReducer
+  }
 })
 
 export type RootState = ReturnType<typeof store.getState>

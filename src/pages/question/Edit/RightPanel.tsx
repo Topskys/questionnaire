@@ -13,7 +13,7 @@ const LeftPanel: FC = () => {
           属性
         </span>
       ),
-      children: <ComponentProp />,
+      children: <ComponentProp />
     },
     {
       key: 'setting',
@@ -23,8 +23,8 @@ const LeftPanel: FC = () => {
           页面设置
         </span>
       ),
-      children: <div>页面设置</div>,
-    },
+      children: <div>页面设置</div>
+    }
   ]
 
   const [activeKey, setActiveKey] = useState(items[0].key)

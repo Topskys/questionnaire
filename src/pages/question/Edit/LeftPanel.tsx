@@ -13,7 +13,7 @@ const LeftPanel: FC = () => {
           组件库
         </span>
       ),
-      children: <ComponentLib />,
+      children: <ComponentLib />
     },
     {
       key: 'layers',
@@ -23,8 +23,8 @@ const LeftPanel: FC = () => {
           图层
         </span>
       ),
-      children: <div>图层</div>,
-    },
+      children: <div>图层</div>
+    }
   ]
 
   const [activeKey, setActiveKey] = useState(items[0].key)

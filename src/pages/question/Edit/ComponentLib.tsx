@@ -19,7 +19,7 @@ function getComponent(c: ComponentConfType) {
         fe_id: nanoid(),
         title,
         type,
-        props: defaultProps, // 根据组件类型设置默认属性
+        props: defaultProps // 根据组件类型设置默认属性
       })
     )
   }
@@ -44,7 +44,7 @@ const ComponentLib: FC = () => {
               level={3}
               style={{
                 fontSize: '16px',
-                marginTop: index > 0 ? '20px' : '0px',
+                marginTop: index > 0 ? '20px' : '0px'
               }}
             >
               {groupName}

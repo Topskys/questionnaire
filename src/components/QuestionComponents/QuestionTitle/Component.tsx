@@ -26,7 +26,7 @@ const QuestionTitle: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType
         style={{
           fontSize: `${getFontSize(level)}px`,
           textAlign: isCenter ? 'center' : 'start',
-          marginBottom: '0',
+          marginBottom: '0'
         }}
       >
         {text}

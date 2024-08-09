@@ -2,7 +2,11 @@ import React, { FC } from 'react'
 import { DeleteOutlined, EyeInvisibleOutlined, LockOutlined } from '@ant-design/icons'
 import { Button, Space, Tooltip } from 'antd'
 import { useDispatch } from 'react-redux'
-import { changeComponentHidden, removeSelectedComponent, toggleComponentLocked } from '../../../store/slice/components'
+import {
+  changeComponentHidden,
+  removeSelectedComponent,
+  toggleComponentLocked
+} from '../../../store/slice/components'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 
 const EditToolBar: FC = () => {
@@ -23,7 +27,7 @@ const EditToolBar: FC = () => {
       icon: <DeleteOutlined />,
       fn: () => {
         dispatch(removeSelectedComponent())
-      },
+      }
     },
     {
       title: '隐藏',
@@ -32,10 +36,10 @@ const EditToolBar: FC = () => {
         dispatch(
           changeComponentHidden({
             fe_id: selectedId,
-            isHidden: true,
+            isHidden: true
           })
         )
-      },
+      }
     },
     {
       title: '锁定',
@@ -43,12 +47,12 @@ const EditToolBar: FC = () => {
       fn: () => {
         dispatch(
           toggleComponentLocked({
-            fe_id: selectedId,
+            fe_id: selectedId
           })
         )
       },
-      type: isLocked ? 'primary' : 'default',
-    },
+      type: isLocked ? 'primary' : 'default'
+    }
   ]
 
   return (

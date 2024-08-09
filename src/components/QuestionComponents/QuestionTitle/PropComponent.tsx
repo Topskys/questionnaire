@@ -4,7 +4,7 @@ import { Form, Checkbox, Select } from 'antd'
 
 // 右侧-属性组件
 const PropComponent: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType) => {
-  const { text, level, isCenter, onChange,disabled } = props
+  const { text, level, isCenter, onChange, disabled } = props
   const [form] = Form.useForm()
 
   useEffect(() => {
@@ -32,8 +32,8 @@ const PropComponent: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType
         rules={[
           {
             required: true,
-            message: '请输入标题内容',
-          },
+            message: '请输入标题内容'
+          }
         ]}
       ></Form.Item>
       <Form.Item label="层级" name="level">
@@ -41,7 +41,7 @@ const PropComponent: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType
           options={[
             { text: 1, value: 1 },
             { text: 2, value: 2 },
-            { text: 3, value: 3 },
+            { text: 3, value: 3 }
           ]}
         />
       </Form.Item>

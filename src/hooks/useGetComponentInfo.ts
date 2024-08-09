@@ -9,7 +9,7 @@ function useGetComponentInfo() {
   return {
     componentList,
     selectedId,
-    selectedComponent,
+    selectedComponent
   }
 }
 

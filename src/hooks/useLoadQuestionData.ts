@@ -17,7 +17,7 @@ function useLoadQuestionData() {
       return data
     },
     {
-      manual: true,
+      manual: true
     }
   )
 
@@ -40,7 +40,7 @@ function useLoadQuestionData() {
 
   return {
     loading,
-    error,
+    error
   }
 }
 

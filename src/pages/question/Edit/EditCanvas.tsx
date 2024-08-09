@@ -31,7 +31,7 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '100vh',
+          height: '100vh'
         }}
       >
         <Spin />
@@ -57,7 +57,7 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
           const wrapperClassName = classNames({
             [wrapperDefaultClassName]: true,
             [selectedClassName]: selectedId === fe_id,
-            [lockedClassName]: c.isLocked,
+            [lockedClassName]: c.isLocked
           })
 
           return (

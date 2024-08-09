@@ -19,13 +19,13 @@ export const componentConfGroup = [
   {
     groupId: 'text',
     groupName: '文本显示',
-    components: [QuestionTitleConf],
+    components: [QuestionTitleConf]
   },
   {
     groupId: 'input',
     groupName: '用户输入',
-    components: [QuestionInputConf],
-  },
+    components: [QuestionInputConf]
+  }
 ]
 
 // 全部组件的配置列表

@@ -18,7 +18,7 @@ export type ComponentsStateType = {
 
 const INIT_STATE: ComponentsStateType = {
   componentList: [], // 组件列表
-  selectedId: '', // 当前选中的组件id
+  selectedId: '' // 当前选中的组件id
 }
 
 export const componentsSlice = createSlice({
@@ -62,7 +62,7 @@ export const componentsSlice = createSlice({
           // 判 null
           currentComponent.props = {
             ...currentComponent.props,
-            ...newProps,
+            ...newProps
           }
         }
       }
@@ -80,38 +80,40 @@ export const componentsSlice = createSlice({
     }),
 
     // 隐藏、显示 组件
-    changeComponentHidden: produce((draft: ComponentsStateType, action: PayloadAction<{ fe_id: string, isHidden: boolean }>) => {
-      const { componentList = [] } = draft
-      const { fe_id, isHidden } = action.payload
-      let newSelectedId = ''
-      if (isHidden) { // 因为要使用isHidden判断，故从外部引入参数
-        // 要隐藏
-        newSelectedId = getNextSelectedId(fe_id, componentList)
-      } else {
-        // 要显示
-        newSelectedId = fe_id
+    changeComponentHidden: produce(
+      (draft: ComponentsStateType, action: PayloadAction<{ fe_id: string; isHidden: boolean }>) => {
+        const { componentList = [] } = draft
+        const { fe_id, isHidden } = action.payload
+        let newSelectedId = ''
+        if (isHidden) {
+          // 因为要使用isHidden判断，故从外部引入参数
+          // 要隐藏
+          newSelectedId = getNextSelectedId(fe_id, componentList)
+        } else {
+          // 要显示
+          newSelectedId = fe_id
+        }
+        draft.selectedId = newSelectedId
+        // 修改组件的隐藏状态
+        const currentComponent = componentList.find(c => c.fe_id === fe_id)
+        if (currentComponent) {
+          currentComponent.isHidden = isHidden
+        }
       }
-      draft.selectedId = newSelectedId
-      // 修改组件的隐藏状态
-      const currentComponent = componentList.find(c => c.fe_id === fe_id)
-      if (currentComponent) {
-        currentComponent.isHidden = isHidden
-      }
-    }),
+    ),
 
     // 锁定、解锁组件
-    toggleComponentLocked: produce((
-      draft: ComponentsStateType, action: PayloadAction<{ fe_id: string }>) => {
-      const { componentList = [] } = draft
-      const { fe_id } = action.payload
-      const currentComponent = componentList.find(c => c.fe_id === fe_id)
-      if (currentComponent) {
-        currentComponent.isLocked = !currentComponent.isLocked
+    toggleComponentLocked: produce(
+      (draft: ComponentsStateType, action: PayloadAction<{ fe_id: string }>) => {
+        const { componentList = [] } = draft
+        const { fe_id } = action.payload
+        const currentComponent = componentList.find(c => c.fe_id === fe_id)
+        if (currentComponent) {
+          currentComponent.isLocked = !currentComponent.isLocked
+        }
       }
-    }),
-
-
-  },
+    )
+  }
 })
 
 export const {
@@ -121,7 +123,7 @@ export const {
   changeComponentProps,
   removeSelectedComponent,
   changeComponentHidden,
-  toggleComponentLocked,
+  toggleComponentLocked
 } = componentsSlice.actions
 
 /**

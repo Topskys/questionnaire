@@ -22,8 +22,8 @@ export default [
               props: {
                 text: '个人信息调研',
                 level: 1,
-                isCenter: false,
-              }, // 右侧属性
+                isCenter: false
+              } // 右侧属性
             },
             {
               fe_id: Random.id(),
@@ -31,13 +31,13 @@ export default [
               title: '输入框',
               props: {
                 text: '姓名',
-                placeholder: '请输入内容',
-              },
-            },
-          ],
+                placeholder: '请输入内容'
+              }
+            }
+          ]
         },
-        msg: 'ok',
+        msg: 'ok'
       }
-    },
-  },
+    }
+  }
 ]
