@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import { QuestionTitlePropsType } from './interface'
-import { Form, Checkbox, Select } from 'antd'
+import { Form, Checkbox, Select, Input } from 'antd'
 
 // 右侧-属性组件
 const PropComponent: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType) => {
@@ -35,7 +35,9 @@ const PropComponent: FC<QuestionTitlePropsType> = (props: QuestionTitlePropsType
             message: '请输入标题内容'
           }
         ]}
-      ></Form.Item>
+      >
+        <Input />
+      </Form.Item>
       <Form.Item label="层级" name="level">
         <Select
           options={[

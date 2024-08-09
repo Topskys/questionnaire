@@ -1,17 +1,17 @@
 /**
- * @description 问卷 输入框
+ * @description 问卷 多行文本输入框
  * @author Topskys
  */
 import Component from './Component'
 import PropComponent from './PropComponent'
-import { QuestionInputDefaultProps } from './interface'
+import { QuestionTextareaDefaultProps } from './interface'
 
 export * from './interface'
 
 export default {
   title: '输入框',
-  type: 'questionInput',
+  type: 'questionTextarea',
   Component,
   PropComponent,
-  defaultProps: QuestionInputDefaultProps
+  defaultProps: QuestionTextareaDefaultProps
 }

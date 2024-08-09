@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import QuestionInputConf, { QuestionInputPropsType } from './QuestionInput'
+import QuestionRadioConf, { QuestionRadioPropsType } from './QuestionRadio'
 import QuestionTitleConf, { QuestionTitlePropsType } from './QuestionTitle'
 import QuestionParagraphConf, { QuestionParagraphPropsType } from './QuestionParagraph'
 import QuestionInfoConf, { QuestionInfoPropsType } from './QuestionInfo'
@@ -10,7 +11,8 @@ export type ComponentPropsType = QuestionInputPropsType &
   QuestionTitlePropsType &
   QuestionParagraphPropsType &
   QuestionInfoPropsType &
-  QuestionTextareaPropsType
+  QuestionTextareaPropsType &
+  QuestionRadioPropsType
 
 // 统一组件配置类型
 export type ComponentConfType = {
@@ -32,16 +34,22 @@ export const componentConfGroup = [
     groupId: 'inputGroup',
     groupName: '用户输入',
     components: [QuestionInputConf]
+  },
+  {
+    groupId: 'chooseGroup',
+    groupName: '用户用户',
+    components: [QuestionInputConf]
   }
 ]
 
 // 全部组件的配置列表
 const componentConfList: ComponentConfType[] = [
-  QuestionInputConf,
+  QuestionRadioConf,
   QuestionTitleConf,
   QuestionParagraphConf,
   QuestionInfoConf,
-  QuestionTextareaConf
+  QuestionTextareaConf,
+  QuestionRadioConf
 ]
 
 export function getComponentConfByType(type: string) {
