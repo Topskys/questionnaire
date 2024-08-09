@@ -1,0 +1,20 @@
+$white: #f7f7f7;
+$hover: #d9d9d9;
+
+
+.wrapper {
+    margin-bottom: 12px;
+    cursor: pointer;
+    background-color: $white;
+    border: 1px solid $white;
+    padding: 12px;
+    border-radius: 3px;
+
+    &:hover {
+        border-color: $hover;
+    }
+}
+
+.component {
+    pointer-events: none; // 屏蔽鼠标的行为
+}

@@ -18,9 +18,16 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    // 添加以下配置以支持路径别名
+    // "baseUrl": ".", // 这通常是项目的根目录  
+    // "paths": {  
+    //   "@/*": ["src/*"] 
+    // }, 
+    // 允许使用any
+    "noImplicitAny": false
   },
   "include": [
     "src"
-  ]
+, "src/mock"  ]
 }

@@ -1,0 +1,27 @@
+$white: #fff;
+$compHover: #d9d9d9;
+$selected: #1890ff; // 组件选中边框颜色
+
+.canvas {
+    min-height: 100%;
+    background-color: $white;
+    overflow: hidden;
+}
+
+.component-wrapper {
+    margin: 12px;
+    border: 1px solid $white;
+    border-radius: 3px;
+
+    &:hover {
+        border-color: $compHover;
+    }
+}
+
+.component {
+    pointer-events: none; // 屏蔽鼠标事件行为
+}
+
+.selected {
+    border-color: $selected !important;
+}
