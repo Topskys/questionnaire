@@ -1,13 +1,23 @@
 import React, { FC } from 'react'
-import { DeleteOutlined, EyeInvisibleOutlined } from '@ant-design/icons'
+import { DeleteOutlined, EyeInvisibleOutlined} from '@ant-design/icons'
 import { Button, Space, Tooltip } from 'antd'
 import { useDispatch } from 'react-redux'
 import { changeComponentHidden, removeSelectedComponent } from '../../../store/slice/components'
+import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 
 const EditToolBar: FC = () => {
   const dispatch = useDispatch()
+  const { selectedId } = useGetComponentInfo()
+  // const { isLocked } = selectedComponent || {}
 
-  const tools = [
+  type ToolType = {
+    title: string
+    icon: React.ReactNode
+    fn: () => void
+    type?: 'link' | 'text' | 'default' | 'primary' | 'dashed' | undefined
+  }
+
+  const tools: ToolType[] = [
     {
       title: '删除',
       icon: <DeleteOutlined />,
@@ -19,9 +29,15 @@ const EditToolBar: FC = () => {
       title: '隐藏',
       icon: <EyeInvisibleOutlined />,
       fn: () => {
-        dispatch(changeComponentHidden())
+        dispatch(
+          changeComponentHidden({
+            fe_id: selectedId,
+            isHidden: true,
+          })
+        )
       },
     },
+    
   ]
 
   return (
@@ -29,7 +45,7 @@ const EditToolBar: FC = () => {
       {tools.map((t, i) => {
         return (
           <Tooltip title={t.title} key={i + 1}>
-            <Button shape="circle" icon={t.icon} onClick={t.fn}></Button>
+            <Button shape="circle" type={t.type} icon={t.icon} onClick={t.fn}></Button>
           </Tooltip>
         )
       })}

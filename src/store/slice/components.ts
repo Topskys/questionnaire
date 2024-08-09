@@ -7,7 +7,8 @@ export type ComponentInfoType = {
   type: string // 组件类型
   title: string // 组件标题
   props: ComponentPropsType // 组件属性
-  isHidden?: boolean // 师傅隐藏
+  isHidden?: boolean // 是否隐藏
+  isLocked?: boolean // 是否锁定
 }
 
 export type ComponentsStateType = {
@@ -79,15 +80,26 @@ export const componentsSlice = createSlice({
     }),
 
     // 隐藏、显示 组件
-    changeComponentHidden: produce((draft: ComponentsStateType) => {
-      // action: PayloadAction<{ fe_id: string, isHidden: boolean }>
-      const { componentList = [], selectedId = '' } = draft
-      // const { fe_id, isHidden } = action.payload
-      const currentComponent = componentList.find(c => c.fe_id === selectedId)
+    changeComponentHidden: produce((draft: ComponentsStateType, action: PayloadAction<{ fe_id: string, isHidden: boolean }>) => {
+      const { componentList = [] } = draft
+      const { fe_id, isHidden } = action.payload
+      let newSelectedId = ''
+      if (isHidden) { // 因为要使用isHidden判断，故从外部引入参数
+        // 要隐藏
+        newSelectedId = getNextSelectedId(fe_id, componentList)
+      } else {
+        // 要显示
+        newSelectedId = fe_id
+      }
+      draft.selectedId = newSelectedId
+      // 修改组件的隐藏状态
+      const currentComponent = componentList.find(c => c.fe_id === fe_id)
       if (currentComponent) {
-        currentComponent.isHidden = !currentComponent.isHidden
+        currentComponent.isHidden = isHidden
       }
     }),
+
+    
   },
 })
 
@@ -105,20 +117,23 @@ export const {
  * @path ./util.ts
  */
 export function getNextSelectedId(fe_id: string = '', componentList: ComponentInfoType[]) {
-  const index = componentList.findIndex(c => c.fe_id === fe_id)
+  const visibleComponentList = componentList.filter(c => !c.isHidden)
+  const index = visibleComponentList.findIndex(c => c.fe_id === fe_id)
   if (index < 0) return ''
+
+  // 重新计算selectedId
   let newSelectedId = ''
-  const len = componentList.length
+  const len = visibleComponentList.length
   if (len <= 1) {
     // 只剩余一个组件
     newSelectedId = ''
   } else {
-    if (index + 1 === length) {
+    if (index + 1 === len) {
       // 删除的是最后一个组件，则选中上一个
-      newSelectedId = componentList[index - 1].fe_id
+      newSelectedId = visibleComponentList[index - 1].fe_id
     } else {
       // 删除的不是最后一个组件，则选中下一个
-      newSelectedId = componentList[index + 1].fe_id
+      newSelectedId = visibleComponentList[index + 1].fe_id
     }
   }
   return newSelectedId
