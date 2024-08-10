@@ -1,5 +1,6 @@
 import { useKeyPress } from 'ahooks'
 import { useDispatch } from 'react-redux'
+import { ActionCreators as UndoActionCreators } from 'redux-undo'
 import {
   copySelectedComponent,
   pasteCopiedComponent,
@@ -59,6 +60,25 @@ function useBindCanvasKeyPress() {
     // 如果当前有输入框被选中，则不执行粘贴操作
     if (!isActiveElementValid()) return
     dispatch(removeSelectedComponent())
+  })
+
+  // 撤销
+  useKeyPress(
+    ['ctrl.z', 'meta.z'],
+    () => {
+      if (!isActiveElementValid()) return
+      dispatch(UndoActionCreators.undo())
+    },
+    {
+      exactMatch: true // 严格匹配模式，必须同时按下ctrl和z才能触发，区别'于ctrl.shift.z'和'meta.shift.z'
+    }
+  )
+
+  // 重做
+  useKeyPress(['ctrl.y', 'meta.y'], () => {
+    // or ['ctrl.shift.z' , 'meta.shift.z'] 但必须有上面的严格匹配模式，否则容易混乱
+    if (!isActiveElementValid()) return
+    dispatch(UndoActionCreators.redo())
   })
 }
 
