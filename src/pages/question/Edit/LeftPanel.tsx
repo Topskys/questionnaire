@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { AppstoreOutlined, BarsOutlined } from '@ant-design/icons'
 import ComponentLib from './ComponentLib'
 import { Tabs } from 'antd'
@@ -28,13 +28,7 @@ const LeftPanel: FC = () => {
     }
   ]
 
-  const [activeKey, setActiveKey] = useState(items[0].key)
-
-  function onChange(key: string) {
-    setActiveKey(key)
-  }
-
-  return <Tabs defaultActiveKey={activeKey} items={items} onChange={onChange} />
+  return <Tabs defaultActiveKey={items[0].key} items={items} />
 }
 
 export default LeftPanel
