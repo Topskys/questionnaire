@@ -1,9 +1,11 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import componentsReducer, { ComponentsStateType } from './slice/components'
+import pageInfoReducer, { PageInfoType } from './slice/pageInfo'
 
 const store = configureStore({
   reducer: {
-    components: componentsReducer
+    components: componentsReducer,
+    pageInfo: pageInfoReducer // key 必须与createSlice的name一致
   }
 })
 
@@ -20,7 +22,9 @@ export default store
 
 export type StateType = {
   // user: UserStateType
+  // 编辑页组件列表
   components: ComponentsStateType
   // components: StateWithHistory<ComponentsStateType> // 增加了 undo
-  // pageInfo: PageInfoType
+  // 页面信息 （页面设置）
+  pageInfo: PageInfoType
 }

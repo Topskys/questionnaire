@@ -31,8 +31,7 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
         style={{
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh'
+          marginTop: '50px'
         }}
       >
         <Spin />

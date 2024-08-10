@@ -1,12 +1,20 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { FileTextOutlined, SettingOutlined } from '@ant-design/icons'
 import { Tabs } from 'antd'
 import ComponentProp from './ComponentProp'
+import PageSetting from './PageSetting'
+import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 
-const LeftPanel: FC = () => {
+// TS 枚举
+enum TAB_KEYS {
+  PROP = 'prop',
+  PAGE_SETTING = 'setting'
+}
+
+const RightPanel: FC = () => {
   const items = [
     {
-      key: 'prop',
+      key: TAB_KEYS.PROP,
       label: (
         <span>
           <FileTextOutlined style={{ marginRight: '5px' }} />
@@ -16,24 +24,26 @@ const LeftPanel: FC = () => {
       children: <ComponentProp />
     },
     {
-      key: 'setting',
+      key: TAB_KEYS.PAGE_SETTING,
       label: (
         <span>
           <SettingOutlined style={{ marginRight: '5px' }} />
           页面设置
         </span>
       ),
-      children: <div>页面设置</div>
+      children: <PageSetting />
     }
   ]
 
-  const [activeKey, setActiveKey] = useState(items[0].key)
+  const [activeKey, setActiveKey] = useState(TAB_KEYS.PROP)
+  const { selectedId } = useGetComponentInfo()
 
-  function onChange(key: string) {
-    setActiveKey(key)
-  }
+  useEffect(() => {
+    if (selectedId) setActiveKey(TAB_KEYS.PROP)
+    else setActiveKey(TAB_KEYS.PAGE_SETTING)
+  }, [selectedId])
 
-  return <Tabs defaultActiveKey={activeKey} items={items} onChange={onChange} />
+  return <Tabs defaultActiveKey={activeKey} items={items} />
 }
 
-export default LeftPanel
+export default RightPanel

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { resetComponents } from '../store/slice/components'
 import { getQuestionService } from '../services/question'
+import { resetPageInfo } from '../store/slice/pageInfo'
 
 function useLoadQuestionData() {
   const { id = '' } = useParams()
@@ -24,13 +25,15 @@ function useLoadQuestionData() {
   // 根据获取的data，设置redux store
   useEffect(() => {
     if (!data) return
-    const { componentList = [] } = data
-    // 设置componentList和默认selectedId
+    const { componentList = [], title = '', desc = '', js = '', css = '' } = data
+    // 01 设置组件列表 componentList和默认selectedId
     let selectedId = ''
     if (componentList.length > 0) {
       selectedId = componentList[0].fe_id
     }
     dispatch(resetComponents({ componentList, selectedId, copiedComponent: null }))
+    // 02 设置页面信息
+    dispatch(resetPageInfo({ title, desc, js, css }))
   }, [data])
 
   // 根据id变化，执行ajax请求
