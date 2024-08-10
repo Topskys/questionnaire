@@ -8,7 +8,13 @@ import {
 
 function isActiveElementValid() {
   const activeElement = document.activeElement
+  // 没有增加dnd-kit可通过这种方式实现删除
   return activeElement === document.body // 光标没有 focus 到 input
+
+  // 添加dnd-kit后，消除dnd-kit对删除功能的影响
+  // if (activeElement === document.body) return true
+  // if (activeElement?.matches('div[role="button"]')) return true
+  // return false
 }
 
 /**

@@ -3,14 +3,17 @@ import {
   BlockOutlined,
   CopyOutlined,
   DeleteOutlined,
+  DownOutlined,
   EyeInvisibleOutlined,
-  LockOutlined
+  LockOutlined,
+  UpOutlined
 } from '@ant-design/icons'
 import { Button, Space, Tooltip } from 'antd'
 import { useDispatch } from 'react-redux'
 import {
   changeComponentHidden,
   copySelectedComponent,
+  moveComponent,
   pasteCopiedComponent,
   removeSelectedComponent,
   toggleComponentLocked
@@ -19,7 +22,12 @@ import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 
 const EditToolBar: FC = () => {
   const dispatch = useDispatch()
-  const { selectedId, selectedComponent, copiedComponent } = useGetComponentInfo()
+  const {
+    selectedId,
+    selectedComponent,
+    copiedComponent,
+    componentList = []
+  } = useGetComponentInfo()
   const { isLocked } = selectedComponent || {}
 
   type ToolType = {
@@ -29,6 +37,11 @@ const EditToolBar: FC = () => {
     type?: 'link' | 'text' | 'default' | 'primary' | 'dashed' | undefined
     disabled?: boolean
   }
+
+  const len = componentList.length
+  const selectedIndex = componentList.findIndex(c => c.fe_id === selectedId)
+  const isFirst = selectedIndex <= 0 // 第一个
+  const isLast = selectedIndex + 1 >= len // 最后一个
 
   const tools: ToolType[] = [
     {
@@ -76,6 +89,34 @@ const EditToolBar: FC = () => {
         dispatch(pasteCopiedComponent())
       },
       disabled: copiedComponent == null
+    },
+    {
+      title: '上移',
+      icon: <UpOutlined />,
+      fn: () => {
+        if (isFirst) return
+        dispatch(
+          moveComponent({
+            oldIndex: selectedIndex,
+            newIndex: selectedIndex - 1
+          })
+        )
+      },
+      disabled: isFirst
+    },
+    {
+      title: '上移',
+      icon: <DownOutlined />,
+      fn: () => {
+        if (isLast) return
+        dispatch(
+          moveComponent({
+            oldIndex: selectedIndex,
+            newIndex: selectedIndex + 1
+          })
+        )
+      },
+      disabled: isLast
     }
   ]
 
