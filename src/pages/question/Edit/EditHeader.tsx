@@ -1,6 +1,6 @@
 import React, { type ChangeEvent, type FC, useState } from 'react'
 import styles from './EditHeader.module.scss'
-import { Button, Input, Space, Typography } from 'antd'
+import { Button, Input, message, Space, Typography } from 'antd'
 import {
   LeftOutlined,
   CheckOutlined,
@@ -111,17 +111,46 @@ const SaveButton: FC = () => {
 }
 
 // 发布按钮
-// const PublishButton: FC = () => {
+const PublishButton: FC = () => {
+  const { id } = useParams() // 获取当前URL的/api/.../:id
+  const pageInfo = useGetPageInfo()
+  const { componentList } = useGetComponentInfo()
+  const navigate = useNavigate()
 
-//   return <Button>发布</Button>
-// }
+  const { run: publish, loading } = useRequest(
+    async () => {
+      if (!id) return
+      await updateQuestionService(id, {
+        ...pageInfo,
+        componentList,
+        isPublished: true // 标志问卷已经被发布
+      })
+    },
+    {
+      manual: true,
+      onSuccess() {
+        message.info('问卷发布成功')
+        navigate('/question/stat/' + id) // 去统计页面
+      }
+    }
+  )
+
+  return (
+    <Button
+      onClick={publish}
+      type="primary"
+      disabled={loading}
+      loading={loading}
+      icon={<SendOutlined />}
+    >
+      发布
+    </Button>
+  )
+}
 
 // 编辑页-头部
 const EditHeader: FC = () => {
   const navigate = useNavigate()
-
-  // 发布
-  const handlePublish = () => {}
 
   return (
     <div className={styles['header-wrapper']}>
@@ -140,9 +169,7 @@ const EditHeader: FC = () => {
         <div className={styles.right}>
           <Space>
             <SaveButton />
-            <Button type="primary" icon={<SendOutlined />} onClick={handlePublish}>
-              发布
-            </Button>
+            <PublishButton />
           </Space>
         </div>
       </div>
