@@ -1,16 +1,19 @@
 import React, { ChangeEvent, FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import styles from './Layers.module.scss'
+import styles from './style/Layers.module.scss'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import { Button, Input, message, Space } from 'antd'
 import {
   changeComponentHidden,
   changeComponentTitle,
   changeSelectedId,
+  moveComponent,
   toggleComponentLocked
 } from '../../../store/slice/components'
 import classNames from 'classnames'
 import { EyeInvisibleOutlined, LockOutlined } from '@ant-design/icons'
+import SortableContainer from '../../../components/DragSortable/SortableContainer'
+import SortableItem from '../../../components/DragSortable/SortableItem'
 
 // 编辑页-图层
 const Layers: FC = () => {
@@ -53,8 +56,20 @@ const Layers: FC = () => {
     dispatch(toggleComponentLocked({ fe_id }))
   }
 
+  const componentListWithId = componentList.map(c => ({ ...c, id: c.fe_id }))
+
+  // 同步拖拽排序结果到redux store
+  const handleDragEnd = (oldIndex: number, newIndex: number) => {
+    dispatch(
+      moveComponent({
+        oldIndex,
+        newIndex
+      })
+    )
+  }
+
   return (
-    <>
+    <SortableContainer items={componentListWithId} onDragEnd={handleDragEnd}>
       {componentList.map(c => {
         const { fe_id, title, isHidden, isLocked } = c
         const titleDefaultClassName = styles.title
@@ -66,43 +81,45 @@ const Layers: FC = () => {
           [lockedClassName]: isLocked
         })
         return (
-          <div key={fe_id} className={styles['layers-wrapper']}>
-            <div className={titleClassName} onClick={() => handleTitleClick(fe_id)}>
-              {fe_id === changingTitleId ? (
-                <Input
-                  value={title}
-                  onChange={handleChangeTitle}
-                  onPressEnter={() => setChangingTitleId('')}
-                  onBlur={() => setChangingTitleId('')}
-                />
-              ) : (
-                title
-              )}
+          <SortableItem key={fe_id} id={fe_id}>
+            <div className={styles['layers-wrapper']}>
+              <div className={titleClassName} onClick={() => handleTitleClick(fe_id)}>
+                {fe_id === changingTitleId ? (
+                  <Input
+                    value={title}
+                    onChange={handleChangeTitle}
+                    onPressEnter={() => setChangingTitleId('')}
+                    onBlur={() => setChangingTitleId('')}
+                  />
+                ) : (
+                  title
+                )}
+              </div>
+              <div className={styles.handler}>
+                <Space>
+                  <Button
+                    type={isHidden ? 'primary' : 'text'}
+                    size="small"
+                    shape="circle"
+                    icon={<EyeInvisibleOutlined />}
+                    className={isHidden ? '' : styles.btn}
+                    onClick={() => changeHidden(fe_id, !isHidden)}
+                  />
+                  <Button
+                    type={isLocked ? 'primary' : 'text'}
+                    size="small"
+                    shape="circle"
+                    icon={<LockOutlined />}
+                    className={isLocked ? '' : styles.btn}
+                    onClick={() => changeLocked(fe_id)}
+                  />
+                </Space>
+              </div>
             </div>
-            <div className={styles.handler}>
-              <Space>
-                <Button
-                  type={isHidden ? 'primary' : 'text'}
-                  size="small"
-                  shape="circle"
-                  icon={<EyeInvisibleOutlined />}
-                  className={isHidden ? '' : styles.btn}
-                  onClick={() => changeHidden(fe_id, !isHidden)}
-                />
-                <Button
-                  type={isLocked ? 'primary' : 'text'}
-                  size="small"
-                  shape="circle"
-                  icon={<LockOutlined />}
-                  className={isLocked ? '' : styles.btn}
-                  onClick={() => changeLocked(fe_id)}
-                />
-              </Space>
-            </div>
-          </div>
+          </SortableItem>
         )
       })}
-    </>
+    </SortableContainer>
   )
 }
 

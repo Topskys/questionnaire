@@ -1,5 +1,4 @@
 import React, { type ChangeEvent, type FC, useState } from 'react'
-import styles from './EditHeader.module.scss'
 import { Button, Input, message, Space, Typography } from 'antd'
 import {
   LeftOutlined,
@@ -8,13 +7,14 @@ import {
   EditOutlined,
   LoadingOutlined
 } from '@ant-design/icons'
-import { useNavigate, useParams } from 'react-router-dom'
-import EditToolBar from './EditToolBar'
-import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import { useDispatch } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useDebounceEffect, useKeyPress, useRequest } from 'ahooks'
+import EditToolBar from './EditToolBar'
+import styles from './style/EditHeader.module.scss'
+import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import { changePageTitle } from '../../../store/slice/pageInfo'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
-import { useDebounceEffect, useKeyPress, useRequest } from 'ahooks'
 import { updateQuestionService } from '../../../services/question'
 
 const { Title } = Typography
@@ -131,6 +131,9 @@ const PublishButton: FC = () => {
       onSuccess() {
         message.info('问卷发布成功')
         navigate('/question/stat/' + id) // 去统计页面
+      },
+      onError() {
+        message.error('问卷发布失败，请稍后重试')
       }
     }
   )

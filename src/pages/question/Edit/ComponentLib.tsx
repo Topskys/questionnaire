@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Typography } from 'antd'
 import { useDispatch } from 'react-redux'
 import { nanoid } from 'nanoid'
-import styles from './ComponentLib.module.scss'
+import styles from './style/ComponentLib.module.scss'
 import { addComponent } from '../../../store/slice/components'
 import { componentConfGroup, ComponentConfType } from '../../../components/QuestionComponents'
 

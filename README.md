@@ -320,3 +320,12 @@ ESLint具有代码检查和代码格式化功能，为避免ESLint规则冲突Pe
 ## eslint类型检查报错
 
 1. any
+
+## React拖拽库
+
+1. react-dnd
+2. react-beautiful-dnd 暂无维护!maintenance，不支持React18严格模式
+3. sortable.js 暂无维护
+4. react-sortable-hoc 暂无维护
+5. dnd-kit 
+

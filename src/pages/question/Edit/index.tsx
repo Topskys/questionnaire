@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './index.module.scss'
+import styles from './style/index.module.scss'
 import EditCanvas from './EditCanvas'
 import useLoadQuestionData from '../../../hooks/useLoadQuestionData'
 import { useDispatch } from 'react-redux'

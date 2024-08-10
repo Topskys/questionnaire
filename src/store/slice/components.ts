@@ -3,6 +3,7 @@ import { produce } from 'immer'
 import cloneDeep from 'lodash.clonedeep'
 import { nanoid } from 'nanoid'
 import { ComponentPropsType } from '../../components/QuestionComponents'
+import { arrayMove } from '@dnd-kit/sortable'
 
 export type ComponentInfoType = {
   fe_id: string // 组件id，防止跟MongoDB生成_id一致，故加前缀fe
@@ -155,6 +156,18 @@ export const componentsSlice = createSlice({
         const currComponent = componentList.find(c => c.fe_id === fe_id)
         if (currComponent) currComponent.title = title
       }
+    ),
+
+    // 移动组件位置（拖拽）
+    moveComponent: produce(
+      (
+        draft: ComponentsStateType,
+        action: PayloadAction<{ oldIndex: number; newIndex: number }>
+      ) => {
+        const { componentList: currComponentList } = draft
+        const { oldIndex, newIndex } = action.payload
+        draft.componentList = arrayMove(currComponentList, oldIndex, newIndex)
+      }
     )
   }
 })
@@ -170,7 +183,8 @@ export const {
   copySelectedComponent,
   pasteCopiedComponent,
   selectPrevComponent,
-  changeComponentTitle
+  changeComponentTitle,
+  moveComponent
 } = componentsSlice.actions
 
 /**
