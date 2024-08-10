@@ -7,10 +7,15 @@ import { changeSelectedId } from '../../../store/slice/components'
 import LeftPanel from './LeftPanel'
 import RightPanel from './RightPanel'
 import EditHeader from './EditHeader'
+import useGetPageInfo from '../../../hooks/useGetPageInfo'
+import { useTitle } from 'ahooks'
 
 export default function Edit() {
   const { loading } = useLoadQuestionData()
+  const { title } = useGetPageInfo()
   const dispatch = useDispatch()
+
+  useTitle(`问卷编辑 - ${title}`)
 
   // 取消选中
   function clearSelectedId() {
