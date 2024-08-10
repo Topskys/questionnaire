@@ -6,11 +6,11 @@ import { nanoid } from 'nanoid'
 
 // 右侧-属性组件
 const PropComponent: FC<QuestionRadioPropsType> = (props: QuestionRadioPropsType) => {
-  const { title, value, options, isVertical, onChange, disabled } = props
+  const { title, value, options = [], isVertical, onChange, disabled } = props
   const [form] = Form.useForm()
 
   useEffect(() => {
-    form.setFieldsValue({ title, options, value, isVertical })
+    form.setFieldsValue({ title, isVertical, options, value })
   }, [title, options, value, isVertical])
 
   // 将发生变化的表单数据同步到父组件，在同步至redux中
@@ -53,7 +53,7 @@ const PropComponent: FC<QuestionRadioPropsType> = (props: QuestionRadioPropsType
           {(fields, { add, remove }) => (
             <>
               {fields.map(({ key, name }, i) => (
-                <Space key={key}>
+                <Space key={key} align="baseline">
                   {/* 当前选项输入框 */}
                   <Form.Item
                     name={[name, 'text']}
@@ -95,13 +95,13 @@ const PropComponent: FC<QuestionRadioPropsType> = (props: QuestionRadioPropsType
 
       <Form.Item label="默认选中" name="value">
         <Select
-          options={options?.map(({ text, value }) => ({ label: text || '', value }))}
+          options={options.map(({ text, value }) => ({ label: text || '', value }))}
           value={value}
           placeholder="请选择"
         />
       </Form.Item>
 
-      <Form.Item name="isVertical" valuePropName="isVertical">
+      <Form.Item name="isVertical" valuePropName="checked">
         <Checkbox>竖向排列</Checkbox>
       </Form.Item>
     </Form>

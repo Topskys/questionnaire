@@ -9,7 +9,7 @@ const LeftPanel: FC = () => {
       key: 'prop',
       label: (
         <span>
-          <FileTextOutlined />
+          <FileTextOutlined style={{ marginRight: '5px' }} />
           属性
         </span>
       ),
@@ -19,7 +19,7 @@ const LeftPanel: FC = () => {
       key: 'setting',
       label: (
         <span>
-          <SettingOutlined />
+          <SettingOutlined style={{ marginRight: '5px' }} />
           页面设置
         </span>
       ),
