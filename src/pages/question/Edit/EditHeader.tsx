@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react'
+import React, { type ChangeEvent, type FC, useState } from 'react'
 import styles from './EditHeader.module.scss'
 import { Button, Input, Space, Typography } from 'antd'
 import {
@@ -14,7 +14,7 @@ import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import { useDispatch } from 'react-redux'
 import { changePageTitle } from '../../../store/slice/pageInfo'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
-import { useKeyPress, useRequest } from 'ahooks'
+import { useDebounceEffect, useKeyPress, useRequest } from 'ahooks'
 import { updateQuestionService } from '../../../services/question'
 
 const { Title } = Typography
@@ -62,7 +62,7 @@ const SaveButton: FC = () => {
   const pageInfo = useGetPageInfo()
   const { componentList } = useGetComponentInfo()
 
-  const { run, loading } = useRequest(
+  const { run: save, loading } = useRequest(
     async () => {
       if (!id) return
       await updateQuestionService(id, {
@@ -76,18 +76,34 @@ const SaveButton: FC = () => {
     }
   )
 
-  // 注册快捷键
+  // 快捷键保存 01
   useKeyPress(['ctrl.s', 'meta.s'], (e: KeyboardEvent) => {
     e.preventDefault() // 阻止网页默认行为 （保存）
-    if (!loading) run()
+    if (!loading) save()
   })
 
+  // 自动保存 02 （不用定时保存，应该监听内容变化而保存，防抖可减少服务器压力）
+  // useEffect(() => {
+  //   run()
+  // },[pageInfo, componentList])
+  useDebounceEffect(
+    // 该钩子带有防抖功能
+    () => {
+      save()
+    },
+    [pageInfo, componentList],
+    {
+      wait: 1000 // 防抖
+    }
+  )
+
+  // 点击保存 03
   return (
     <Button
       icon={loading ? <LoadingOutlined /> : <CheckOutlined />}
       loading={loading}
       disabled={loading}
-      onClick={run}
+      onClick={save}
     >
       保存
     </Button>
@@ -95,6 +111,10 @@ const SaveButton: FC = () => {
 }
 
 // 发布按钮
+// const PublishButton: FC = () => {
+
+//   return <Button>发布</Button>
+// }
 
 // 编辑页-头部
 const EditHeader: FC = () => {
