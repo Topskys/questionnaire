@@ -83,7 +83,6 @@ export const componentsSlice = createSlice({
           // 因为要使用isHidden判断，故从外部引入参数
           // 要隐藏
           newSelectedId = getNextSelectedId(fe_id, componentList)
-          console.log('要隐藏', newSelectedId)
         } else {
           // 要显示
           newSelectedId = fe_id
@@ -144,9 +143,19 @@ export const componentsSlice = createSlice({
       if (selectedIndex < 0) return // 未选中组件
       if (selectedIndex + 1 === componentList.length) return // 已经选中最后一个组件，无法再向下
       draft.selectedId = componentList[selectedIndex + 1].fe_id
-    })
+    }),
 
     // TODO: 撤销 重做  上移 下移
+
+    // 修改组件标题
+    changeComponentTitle: produce(
+      (draft: ComponentsStateType, action: PayloadAction<{ fe_id: string; title: string }>) => {
+        const { fe_id, title } = action.payload
+        const { componentList = [] } = draft
+        const currComponent = componentList.find(c => c.fe_id === fe_id)
+        if (currComponent) currComponent.title = title
+      }
+    )
   }
 })
 
@@ -160,7 +169,8 @@ export const {
   toggleComponentLocked,
   copySelectedComponent,
   pasteCopiedComponent,
-  selectPrevComponent
+  selectPrevComponent,
+  changeComponentTitle
 } = componentsSlice.actions
 
 /**

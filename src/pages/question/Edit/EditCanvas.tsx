@@ -60,7 +60,6 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
             [selectedClassName]: selectedId === fe_id,
             [lockedClassName]: c.isLocked
           })
-
           return (
             <div key={fe_id} className={wrapperClassName} onClick={e => handleClick(e, fe_id)}>
               <div className={styles.component}>{getComponent(c)}</div>

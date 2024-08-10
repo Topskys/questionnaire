@@ -46,7 +46,7 @@ export const componentConfGroup = [
 
 // 全部组件的配置列表
 const componentConfList: ComponentConfType[] = [
-  QuestionRadioConf,
+  QuestionInputConf,
   QuestionTitleConf,
   QuestionParagraphConf,
   QuestionInfoConf,

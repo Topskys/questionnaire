@@ -1,8 +1,8 @@
 import React, { FC, useEffect } from 'react'
-import { QuestionCheckboxPropsType } from './interface'
-import { Button, Checkbox, Form, Input, Space } from 'antd'
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { nanoid } from 'nanoid'
+import { Button, Checkbox, Form, Input, Space } from 'antd'
+import { QuestionCheckboxPropsType } from './interface'
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 
 // 右侧-属性组件
 const PropComponent: FC<QuestionCheckboxPropsType> = (props: QuestionCheckboxPropsType) => {

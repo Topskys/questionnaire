@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
-import { componentConfGroup, ComponentConfType } from '../../../components/QuestionComponents'
 import { Typography } from 'antd'
-import styles from './ComponentLib.module.scss'
 import { useDispatch } from 'react-redux'
 import { nanoid } from 'nanoid'
+import styles from './ComponentLib.module.scss'
 import { addComponent } from '../../../store/slice/components'
+import { componentConfGroup, ComponentConfType } from '../../../components/QuestionComponents'
 
 const { Title } = Typography
 
@@ -35,7 +35,7 @@ function getComponent(c: ComponentConfType) {
 
 const ComponentLib: FC = () => {
   return (
-    <>
+    <div style={{ minHeight: 'calc(100vh - 400px)', overflow: 'auto' }}>
       {componentConfGroup.map((group, index) => {
         const { groupId, groupName, components } = group
         return (
@@ -53,7 +53,7 @@ const ComponentLib: FC = () => {
           </div>
         )
       })}
-    </>
+    </div>
   )
 }
 

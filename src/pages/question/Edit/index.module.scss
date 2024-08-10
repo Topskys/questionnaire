@@ -23,12 +23,14 @@ $canvas-shadow: #0000001f;
                 width: 285px;
                 padding: 0 12px;
                 background-color: $white;
+                
             }
 
             .center {
                 flex: 1;
                 position: relative;
-                overflow: hidden;
+                // overflow: hidden;
+                overflow: auto;
 
                 .canvas-wrapper {
                     position: absolute;
@@ -48,4 +50,10 @@ $canvas-shadow: #0000001f;
             }
         }
     }
+
+}
+
+:global(.ant-tabs-content-holder){
+    height: calc(100vh - 158px);
+    overflow: auto;
 }
