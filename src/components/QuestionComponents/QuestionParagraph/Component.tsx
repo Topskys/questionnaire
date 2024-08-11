@@ -15,11 +15,11 @@ const Component: React.FC<QuestionParagraphPropsType> = (props: QuestionParagrap
   return (
     <Paragraph style={{ textAlign: isCenter ? 'center' : 'start', marginBottom: '0' }}>
       {/* <span dangerouslySetInnerHTML={{ __html: formatText }}></span> 01*/}
-      {textList.map((text, index) => {
+      {textList.map((t, index) => {
         return (
           <span key={index}>
             {index > 0 && <br />}
-            {text}
+            {t}
           </span>
         )
       })}

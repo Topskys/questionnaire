@@ -36,7 +36,6 @@ const QuestionRadio: FC<PropsType> = ({ fe_id, value, isVertical, props }) => {
                   name={fe_id}
                   value={value}
                   defaultChecked={val === value}
-                  onChange={() => {}}
                 />
                 {text}
               </label>

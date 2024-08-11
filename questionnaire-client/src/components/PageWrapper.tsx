@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { FC } from 'react'
-import styles from '@/styles/PageWrapper.module.css'
+import styles from '@/styles/PageWrapper.module.scss'
 import Script from 'next/script'
 
 type PropsType = {

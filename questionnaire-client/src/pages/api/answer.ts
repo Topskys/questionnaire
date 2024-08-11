@@ -1,4 +1,4 @@
-import { postAnswer } from "@/services/postAnswer";
+import { postAnswer } from "@/services/answer";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
