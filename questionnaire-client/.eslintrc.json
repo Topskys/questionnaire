@@ -1,0 +1,23 @@
+{
+  "extends": "next/core-web-vitals"
+  // ,"rules": {
+    // 关闭ESLint 必须导入 import React from 'react'
+    // "react/react-in-jsx-scope": "off",
+    // "react/jsx-uses-react": "off",
+    // "react/jsx-filename-extension": [
+    //   1,
+    //   {
+    //     "extensions": [
+    //       ".js",
+    //       ".jsx",
+    //       ".ts",
+    //       ".tsx"
+    //     ]
+    //   }
+    // ],
+    // 关掉未使用报错
+    // "@typescript-eslint/no-unused-vars": "off",
+    // 关闭any类型报错
+    // "@typescript-eslint/no-explicit-any": "off",
+    // }
+}

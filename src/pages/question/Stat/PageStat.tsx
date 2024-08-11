@@ -78,7 +78,13 @@ function PageStat(props: PropsType) {
         </div>
       ) : (
         <>
-          <Table columns={columns} dataSource={dataSource} pagination={false} rowKey="key" />
+          <Table
+            columns={columns}
+            dataSource={dataSource}
+            pagination={false}
+            rowKey="key"
+            size="small"
+          />
           <Pagination
             total={total}
             current={page}

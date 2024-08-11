@@ -25,11 +25,12 @@ module.exports = {
     //     sourceType: 'module',
     // },
     plugins: ['react', '@typescript-eslint'],
+    // 这个配置无用，只有eslint.config.mjs的rules有用
     // rules: {
-    //     "@typescript-eslint/no-explicit-any": "off", // 禁止使用any类型
-    //     "@typescript-eslint/no-require-imports": "off", // 禁止require导入
-    //     "no-unused-vars": "off", // 禁止未使用的变量
-    //     '@typescript-eslint/no-var-requires': 0, // 禁止使用require导入
+        //     "@typescript-eslint/no-explicit-any": "off", // 禁止使用any类型
+        //     "@typescript-eslint/no-require-imports": "off", // 禁止require导入
+        //     "no-unused-vars": "off", // 禁止未使用的变量
+        //     '@typescript-eslint/no-var-requires': 0, // 禁止使用require导入
     // },
     ignorePatterns: ['node_modules', 'dist', 'public'], // 忽略文件
     settings: {

@@ -1,8 +1,8 @@
 import { useRequest } from 'ahooks'
 import React, { useEffect, useState } from 'react'
-import { getComponentStatService } from '../../../services/stat'
 import { useParams } from 'react-router-dom'
 import { Typography } from 'antd'
+import { getComponentStatService } from '../../../services/stat'
 import { getComponentConfByType } from '../../../components/QuestionComponents'
 
 type PropsType = {
@@ -32,6 +32,7 @@ function ChartStat(props: PropsType) {
     if (selectedComponentId) run(id, selectedComponentId)
   }, [id, selectedComponentId])
 
+  // 生成统计图表
   function genStatElem() {
     if (!selectedComponentId) return <div>未选中组件</div>
     const { StatComponent } = getComponentConfByType(selectedComponentType) || {}
