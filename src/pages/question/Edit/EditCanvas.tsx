@@ -23,7 +23,7 @@ function getComponent(componentInfo: ComponentInfoType) {
   return <Component {...props} />
 }
 
-// 渲染组件画布
+// 问卷编辑页-渲染画布
 const EditCanvas: FC<PropsType> = ({ loading }) => {
   const dispatch = useDispatch()
   useBindCanvasKeyPress() // 注册快捷键

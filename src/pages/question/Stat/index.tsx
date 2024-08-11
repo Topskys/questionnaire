@@ -1,22 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Spin, Result, Button } from 'antd'
 import useLoadQuestionData from '../../../hooks/useLoadQuestionData'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import { useNavigate } from 'react-router-dom'
 import { useTitle } from 'ahooks'
-import styles from './index.module.scss'
+import styles from './style/index.module.scss'
 import StatHeader from './StatHeader'
+import ComponentList from './ComponentList'
+import PageStat from './PageStat'
 
 export default function Stat() {
   const navigate = useNavigate()
   const { loading } = useLoadQuestionData()
   const { isPublished, title } = useGetPageInfo()
 
+  // 状态提升 selectedId type 用于ComponentList组件 （componentList等组件的状态提升到父组件统一管理和分享）
+  const [selectedComponentId, setSelectedComponentId] = useState('')
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [selectedComponentType, setSelectedComponentType] = useState('')
+
   // 修改网站标题 （也可document.title='xx'）
   useTitle(`问卷分析 - ${title}`)
 
   // loading组件
-  const LoadingElement = () => (
+  const LoadingElement = (
     <div style={{ textAlign: 'center', marginTop: '60px' }}>
       <Spin />
     </div>
@@ -42,8 +49,20 @@ export default function Stat() {
     }
     return (
       <>
-        <div className={styles.left}></div>
-        <div className={styles.main}></div>
+        <div className={styles.left}>
+          <ComponentList
+            selectedComponentId={selectedComponentId}
+            setSelectedComponentId={setSelectedComponentId}
+            setSelectedComponentType={setSelectedComponentType}
+          />
+        </div>
+        <div className={styles.main}>
+          <PageStat
+            selectedComponentId={selectedComponentId}
+            setSelectedComponentId={setSelectedComponentId}
+            setSelectedComponentType={setSelectedComponentType}
+          />
+        </div>
         <div className={styles.right}></div>
       </>
     )
@@ -52,8 +71,8 @@ export default function Stat() {
   return (
     <div className={styles.container}>
       <StatHeader />
-      <div className={styles.contentWrapper}>
-        <div className={styles.content}>{loading ? <LoadingElement /> : getContentElement()}</div>
+      <div className={styles['content-wrapper']}>
+        <div className={styles.content}>{loading ? LoadingElement : getContentElement()}</div>
       </div>
     </div>
   )

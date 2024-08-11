@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import styles from './StatHeader.module.scss'
+import styles from './style/StatHeader.module.scss'
 import { Button, Input, InputRef, message, Popover, Space, Tooltip, Typography } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom'
 import useGetPageInfo from '../../../hooks/useGetPageInfo'
