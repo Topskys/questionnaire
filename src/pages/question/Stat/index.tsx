@@ -8,15 +8,15 @@ import styles from './style/index.module.scss'
 import StatHeader from './StatHeader'
 import ComponentList from './ComponentList'
 import PageStat from './PageStat'
+import ChartStat from './ChartStat'
 
 export default function Stat() {
   const navigate = useNavigate()
   const { loading } = useLoadQuestionData()
   const { isPublished, title } = useGetPageInfo()
 
-  // 状态提升 selectedId type 用于ComponentList组件 （componentList等组件的状态提升到父组件统一管理和分享）
+  // 状态提升 selectedId type 用于ComponentList、ChartStat、PageStat组件 （componentList等组件的状态提升到父组件统一管理和分享）
   const [selectedComponentId, setSelectedComponentId] = useState('')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedComponentType, setSelectedComponentType] = useState('')
 
   // 修改网站标题 （也可document.title='xx'）
@@ -63,7 +63,12 @@ export default function Stat() {
             setSelectedComponentType={setSelectedComponentType}
           />
         </div>
-        <div className={styles.right}></div>
+        <div className={styles.right}>
+          <ChartStat
+            selectedComponentId={selectedComponentId}
+            selectedComponentType={selectedComponentType}
+          />
+        </div>
       </>
     )
   }
