@@ -1,13 +1,38 @@
-.list{
+.list {
     padding: 0;
     list-style-type: none;
+    margin-bottom: 12px;
+
+    .label {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: #000000e0;
+    }
+
+    input {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        // type='radio'选中的颜色
+        accent-color: #1677ff;
+
+        &:hover {
+            border-color: #4096ff;
+        }
+    }
 }
 
-.verticalItem{
+.verticalItem {
     border-bottom: 10px;
 }
 
-.horizontalItem{
+.horizontalItem {
     display: inline-block;
     margin-right: 10px;
+}
+
+.title {
+    color: #000000e0;
+    margin-bottom: 8px;
 }

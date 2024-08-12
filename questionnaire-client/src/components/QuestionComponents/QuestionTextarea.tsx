@@ -13,7 +13,7 @@ const QuestionTextarea: FC<PropsType> = ({ fe_id, props }) => {
   const { title, placeholder = '' } = props
   return (
     <>
-      <p>{title}</p>
+      <p className={styles.title}>{title}</p>
       <div className={styles['textarea-wrapper']}>
         <textarea name={fe_id} placeholder={placeholder} rows={5}/>
       </div>

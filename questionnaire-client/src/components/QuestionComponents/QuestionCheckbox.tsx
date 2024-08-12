@@ -40,7 +40,7 @@ const QuestionCheckbox: FC<PropsType> = ({ fe_id, props }) => {
 
   return (
     <>
-      <p>{title}</p>
+      <p className={styles.title}>{title}</p>
       {/* 隐藏域 selectedValues.toString() == *.join(',')*/}
       <input type="hidden" name={fe_id} value={selectedValues.toString()} />
       {/* 渲染选项 */}
@@ -55,7 +55,7 @@ const QuestionCheckbox: FC<PropsType> = ({ fe_id, props }) => {
 
           return (
             <li key={value} className={liClassName}>
-              <label>
+              <label className={styles.label}>
                 <input
                   type="checkbox"
                   checked={selectedValues.includes(value)}

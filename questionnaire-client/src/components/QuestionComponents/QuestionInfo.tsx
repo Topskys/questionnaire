@@ -11,8 +11,8 @@ const QuestionInfo: FC<PropsType> = (props: PropsType) => {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <h1>{title}</h1>
-      <p>{desc}</p>
+      <h1 style={{ margin: '20px 0 10px 0' }}>{title}</h1>
+      <p style={{ marginBottom: '20px' }}>{desc}</p>
     </div>
   )
 }

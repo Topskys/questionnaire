@@ -4,8 +4,26 @@
 
     input {
         width: 100%;
-        border: 1px solid #d8d8d8;
+        height: 39px;
+        border: 1px solid #d9d9d9;
         border-radius: 3px;
         padding: 6px 12px;
+
+        &:hover {
+            border-color: #4096ff;
+        }
+
+        &:focus {
+            border-color: #1677ff;
+            box-shadow: 0 0 0 2px rgba(5, 145, 255, 0.1);
+            outline: 0;
+            background-color: #fff;
+        }
     }
+}
+
+
+.title {
+    color: #000000e0;
+    margin-bottom: 8px;
 }

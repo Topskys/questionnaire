@@ -22,9 +22,9 @@ export const getComponent = (comp: ComponentInfoType) => {
 
   switch (type) {
     case 'questionInput':
-      return <QuestionInput key={fe_id} {...props} />
+      return <QuestionInput fe_id={fe_id} props={props} />
     case 'questionRadio':
-      return <QuestionRadio key={fe_id} {...props} />
+      return <QuestionRadio fe_id={fe_id} props={props} />
     case 'questionTitle':
       return <QuestionTitle {...props} />
     case 'questionParagraph':
@@ -32,9 +32,9 @@ export const getComponent = (comp: ComponentInfoType) => {
     case 'questionInfo':
       return <QuestionInfo {...props} />
     case 'questionTextarea':
-      return <QuestionTextarea key={fe_id} {...props} />
+      return <QuestionTextarea fe_id={fe_id} props={props} />
     case 'questionCheckbox':
-      return <QuestionCheckbox key={fe_id} {...props} />
+      return <QuestionCheckbox fe_id={fe_id} props={props} />
     default:
       return null
   }

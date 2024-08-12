@@ -13,7 +13,7 @@ const QuestionInput: FC<PropsType> = ({ fe_id, props }) => {
   const { title, placeholder = '' } = props
   return (
     <>
-      <p>{title}</p>
+      <p className={styles.title}>{title}</p>
       <div className={styles['input-wrapper']}>
         <input name={fe_id} placeholder={placeholder} />
       </div>

@@ -10,7 +10,7 @@ type PropsType = {
       value: string
     }> // 选项
   }
-  value: string // 当前选中值
+  value?: string // 当前选中值
   isVertical?: boolean // 是否垂直排列
 }
 
@@ -18,7 +18,7 @@ const QuestionRadio: FC<PropsType> = ({ fe_id, value, isVertical, props }) => {
   const { title, options = [] } = props
   return (
     <>
-      <p>{title}</p>
+      <p className={styles.title}>{title}</p>
       <ul className={styles.list}>
         {options.map(o => {
           const { text, value: val } = o
@@ -30,7 +30,7 @@ const QuestionRadio: FC<PropsType> = ({ fe_id, value, isVertical, props }) => {
 
           return (
             <li key={val} className={liClassName}>
-              <label>
+              <label className={styles.label}>
                 <input
                   type="radio"
                   name={fe_id}
