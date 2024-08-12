@@ -13,16 +13,12 @@ export default [
         pragma: 'React',
         version: 'detect'
       }
-    }
-  },
+    },
+  }, 
   { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
-  {
-    // 忽略eslint检查的文件
-    ignores: ['node_modules', 'dist', 'public', '*.md'],
-  },
   {
     rules: {
       //  "@typescript-eslint/no-require-imports": "error", // 禁止require导入
@@ -43,5 +39,9 @@ export default [
       // 关闭any类型报错
       // "@typescript-eslint/no-explicit-any": "off",
     }
+  },
+  {
+    // 忽略eslint检查的文件
+    ignores: ['node_modules', 'dist', 'public', '*.md', 'questionnaire-client'],
   }
 ];
