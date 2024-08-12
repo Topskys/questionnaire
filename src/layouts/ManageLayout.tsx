@@ -40,7 +40,7 @@ export default function ManageLayout() {
           return pathname.startsWith(path) ? 'default' : 'text'
         }
         return (
-          <>
+          <div key={index}>
             <Button
               icon={icon}
               key={index}
@@ -48,10 +48,10 @@ export default function ManageLayout() {
               size="large"
               onClick={() => nav(path)}
             >
-              {name} 
+              {name}
             </Button>
             {index === 0 && <Divider style={{ borderTop: 'transparent' }} />}
-          </>
+          </div>
         )
       })}
     </Space>

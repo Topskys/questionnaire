@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './style/MainLayout.module.scss'
 import { Layout } from 'antd'
-import {  Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import Logo from '../components/Logo'
 import UserInfo from '../components/UserInfo'
 
@@ -12,10 +12,10 @@ export default function MainLayout() {
     <Layout>
       <Header className={styles.header}>
         <div className={styles.left}>
-          <Logo/>
+          <Logo />
         </div>
         <div className={styles.right}>
-          <UserInfo/>
+          <UserInfo />
         </div>
       </Header>
       <Content className={styles.main}>

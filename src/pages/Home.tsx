@@ -16,7 +16,7 @@ export default function Home() {
         <Title>问卷调查 | 在线投票</Title>
         <Paragraph>已累计创建问卷 660 份，发布问卷 621 份，收到答卷 580 份</Paragraph>
         <div>
-          <Button type="primary" size='large' onClick={()=>nav(MANAGE_INDEX_PATHNAME)}>
+          <Button type="primary" size="large" onClick={() => nav(MANAGE_INDEX_PATHNAME)}>
             开始使用
           </Button>
         </div>
