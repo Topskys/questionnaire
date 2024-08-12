@@ -1,7 +1,7 @@
+import { useTitle } from 'ahooks'
 import React from 'react'
 
 export default function NotFound() {
-  return (
-    <div>NotFound</div>
-  )
+  useTitle('芮艾格德问卷 - NotFound')
+  return <div>NotFound</div>
 }

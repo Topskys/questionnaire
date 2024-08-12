@@ -1,7 +1,7 @@
+import { useTitle } from 'ahooks'
 import React from 'react'
 
 export default function Login() {
-  return (
-    <div>Login</div>
-  )
+  useTitle('芮艾格德问卷 - 登录')
+  return <div>Login</div>
 }

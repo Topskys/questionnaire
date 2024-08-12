@@ -1,7 +1,7 @@
+import { useTitle } from 'ahooks'
 import React from 'react'
 
 export default function Trash() {
-  return (
-    <div>Trash</div>
-  )
+    useTitle('芮艾格德问卷 - 回收站')
+  return <div>Trash</div>
 }
