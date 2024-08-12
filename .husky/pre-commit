@@ -4,7 +4,7 @@
 npm run format
 
 # 检查忽略代码
-npx lint-staged
+# npx lint-staged
 
 # eslint代码质量检查
 # npm run lint
@@ -13,3 +13,5 @@ npx lint-staged
 #npm run format
 
 #git add .
+
+# 提示：代码在进行提交时，不要打断和改动代码，否则Git会报错，引起一些列麻烦
