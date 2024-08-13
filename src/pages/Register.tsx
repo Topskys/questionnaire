@@ -10,7 +10,7 @@ const { Title } = Typography
 
 // [formik表单规则效验](formik.org) 编写麻烦
 // [Ant Design 表单验证](https://ant.design/components/form/#Form.Item)
-// [react-hook-form]()
+// [react-hook-form](https://react-hook-form.com/)
 
 export default function Register() {
   useTitle('芮艾格德问卷 - 注册')
@@ -43,7 +43,7 @@ export default function Register() {
           form={form}
           onFinish={handleFinish}
           onFinishFailed={handleFinishFailed}
-          labelCol={{ span: 4 }}
+          labelCol={{ span: 7 }}
           wrapperCol={{ span: 16 }}
         >
           <Form.Item
@@ -84,7 +84,7 @@ export default function Register() {
                     return Promise.reject(new Error('两次输入的密码不一致'))
                   }
                 }
-              }) 
+              })
             ]}
           >
             <Input.Password placeholder="请输入确认密码" />
@@ -96,7 +96,7 @@ export default function Register() {
           >
             <Input placeholder="请输入用户昵称" />
           </Form.Item>
-          <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
+          <Form.Item wrapperCol={{ offset: 7, span: 16 }}>
             <Space>
               <Button type="primary" htmlType="submit">
                 注册
