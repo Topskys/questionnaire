@@ -6,6 +6,7 @@ import { Empty, Typography } from 'antd'
 import ListSearch from '../../components/ListSearch'
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
 import Loading from '../../components/Loading'
+import ListPage from '../../components/ListPage'
 
 const { Title } = Typography
 
@@ -37,7 +38,9 @@ export default function Star() {
           <Empty description="暂无数据" />
         )}
       </div>
-      <div className={styles.pagination}>分页{total}</div>
+      <div className={styles.pagination}>
+        <ListPage total={total} />
+      </div>
     </>
   )
 }

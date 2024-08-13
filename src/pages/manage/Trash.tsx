@@ -6,6 +6,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons'
 import ListSearch from '../../components/ListSearch'
 import Loading from '../../components/Loading'
 import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
+import ListPage from '../../components/ListPage'
 
 const { Title } = Typography
 
@@ -15,6 +16,9 @@ export default function Trash() {
   useTitle('芮艾格德问卷 - 回收站')
 
   const [selectedIds, setSelectedIds] = useState<string[]>([])
+
+  const { loading, data = {} } = useLoadQuestionListData({ isDeleted: true })
+  const { total = 0, list = [] } = data
 
   const columns = [
     {
@@ -55,9 +59,6 @@ export default function Trash() {
       }
     })
   }
-
-  const { loading, data = {} } = useLoadQuestionListData({ isDeleted: true })
-  const { total = 0, list = [] } = data
 
   return (
     <>
@@ -101,7 +102,9 @@ export default function Trash() {
           <Empty description="暂无数据" />
         )}
       </div>
-      <div className={styles.pagination}>分页{total}</div>
+      <div className={styles.pagination}>
+        <ListPage total={total} />
+      </div>
     </>
   )
 }
