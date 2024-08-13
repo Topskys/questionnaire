@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import styles from './List.module.scss'
 import QuestionCard from '../../components/QuestionCard'
 import { useDebounceFn, useRequest, useTitle } from 'ahooks'
@@ -91,12 +91,13 @@ export default function List() {
   }, [keyword])
 
   // 加载更多dom
-  const LoadMoreContentElem = () => {
+  const LoadMoreContentElem = useMemo(() => {
+    // 优化：缓存该组件，避免重复渲染，当依赖变化时才重新渲染
     if (!started || loading) return <Loading />
     if (total === 0) return <Empty description="暂无数据" />
     if (!haveMoreData) return <span>没有更多数据了...</span>
     return <span>正在加载下一页...</span>
-  }
+  }, [started, loading, haveMoreData])
 
   // useEffect(() => {
   //   async function load() {
@@ -133,7 +134,7 @@ export default function List() {
           })}
       </div>
       <div className={styles.pagination}>
-        <div ref={containerRef}>{LoadMoreContentElem()}</div>
+        <div ref={containerRef}>{LoadMoreContentElem}</div>
       </div>
     </>
   )
