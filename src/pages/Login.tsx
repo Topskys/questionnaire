@@ -1,10 +1,12 @@
-import { useTitle } from 'ahooks'
+import { useRequest, useTitle } from 'ahooks'
 import React, { useEffect } from 'react'
 import styles from './Login.module.scss'
-import { Button, Checkbox, Form, Input, Space, Typography } from 'antd'
+import { Button, Checkbox, Form, Input, message, Space, Typography } from 'antd'
 import { UserAddOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
-import { REGISTER_PATHNAME } from '../router'
+import { Link, useNavigate } from 'react-router-dom'
+import { MANAGE_INDEX_PATHNAME, REGISTER_PATHNAME } from '../router'
+import { loginService } from '../services/user'
+import { setToken } from '../utils/user-token'
 
 const { Title } = Typography
 
@@ -39,6 +41,24 @@ export default function Login() {
     form.setFieldsValue({ username, password })
   }, [])
 
+  const nav = useNavigate()
+  const { run } = useRequest(
+    async (username: string, password: string) => {
+      const data = await loginService(username, password)
+      return data
+    },
+    {
+      manual: true,
+      debounceWait: 1000, // 防抖
+      onSuccess: result => {
+        const { token } = result || {}
+        if (token) setToken(token)
+        message.success('登录成功')
+        nav(MANAGE_INDEX_PATHNAME)
+      }
+    }
+  )
+
   // 点击登录执行
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFinish = (values: any) => {
@@ -48,12 +68,14 @@ export default function Login() {
     } else {
       forgetUserFromStorage()
     }
+    run(username, password)
   }
 
   // 处理失败
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo)
+    // console.log('Failed:', errorInfo)
+    message.error(errorInfo.errorFields[0].errors[0])
   }
 
   return (

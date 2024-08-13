@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { message } from 'antd'
+import { getToken } from '../utils/user-token'
 
 const instance = axios.create({
   timeout: 10 * 1000
@@ -7,7 +8,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   config => {
-    // config.headers['Authorization'] = 'Bearer ' + token;
+    config.headers['Authorization'] = 'Bearer ' + getToken()
     return config
   },
   error => Promise.reject(error)
@@ -23,7 +24,7 @@ instance.interceptors.response.use(
       }
       throw new Error(msg)
     }
-    console.log(new Date(), 'response', data)
+    // console.log(new Date(), 'response', data)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return data as any
   },

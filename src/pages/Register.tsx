@@ -1,31 +1,46 @@
-import { useTitle } from 'ahooks'
+import { useRequest, useTitle } from 'ahooks'
 import React from 'react'
 import styles from './Register.module.scss'
-import { Button, Form, Input, Space, Typography } from 'antd'
+import { Button, Form, Input, message, Space, Typography } from 'antd'
 import { UserAddOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { LOGIN_PATHNAME } from '../router'
-
-const { Title } = Typography
+import { registerService } from '../services/user'
 
 // [formik表单规则效验](formik.org) 编写麻烦
 // [Ant Design 表单验证](https://ant.design/components/form/#Form.Item)
 // [react-hook-form](https://react-hook-form.com/)
 
+const { Title } = Typography
+
 export default function Register() {
   useTitle('芮艾格德问卷 - 注册')
-
   const [form] = Form.useForm()
+  const nav = useNavigate()
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-  const handleFinish = (values: any) => {
-    // TODO: 注册
-  }
+  const { run } = useRequest(
+    async values => {
+      const { username, password, nickname } = values
+      await registerService(username, password, nickname)
+    },
+    {
+      manual: true,
+      debounceWait: 1000, // 防抖
+      onSuccess: () => {
+        message.success('注册成功')
+        nav(LOGIN_PATHNAME)
+      }
+    }
+  )
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleFinish = (values: any) => run(values)
 
   // 处理失败
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo)
+    // console.log('Failed:', errorInfo)
+    message.error(errorInfo.errorFields[0].errors[0])
   }
 
   return (

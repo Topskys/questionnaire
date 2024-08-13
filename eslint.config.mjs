@@ -38,6 +38,8 @@ export default [
       // "@typescript-eslint/no-unused-vars": "off",
       // 关闭any类型报错
       // "@typescript-eslint/no-explicit-any": "off",
+      // 设置代码复杂度阈值（默认20）vsCode插件：CodeMetrics
+      // "complexity": ["error", 2]
     }
   },
   {
