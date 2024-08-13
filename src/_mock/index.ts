@@ -4,16 +4,20 @@ import Mock from 'mockjs'
 // import question from './question'
 
 const baseUrl = '/api'
-const mocks = [{
-  url: '/test',
-  type: 'get',
-  response: () => {
-    return {
-      code: 200,
-      data: Date.now() + '测试mockjs的使用，mockjs不能劫持fetch，只能劫持XMLHttpRequest，可以使用axios（XMLHttpRequest）'
+const mocks = [
+  {
+    url: '/test',
+    type: 'get',
+    response: () => {
+      return {
+        code: 200,
+        data:
+          Date.now() +
+          '测试mockjs的使用，mockjs不能劫持fetch，只能劫持XMLHttpRequest，可以使用axios（XMLHttpRequest）'
+      }
     }
   }
-}]
+]
 
 Mock.setup({ timeout: 800 })
 
@@ -23,7 +27,6 @@ Mock.setup({ timeout: 800 })
 for (const i of mocks) {
   Mock.mock(`${baseUrl}${i.url}`, i.type, i.response)
 }
-
 
 // 使用mockjs
 
@@ -45,9 +48,9 @@ for (const i of mocks) {
 // 03 在需要使用mockjs的页面使用axios请求
 // import axios from 'axios'
 
-  // 测试mockjs
-  // useEffect(()=>{
-  //   axios.get('/api/test').then(res=>{
-  //     console.log('----------------------',res.data)
-  //   })
-  // },[])
+// 测试mockjs
+// useEffect(()=>{
+//   axios.get('/api/test').then(res=>{
+//     console.log('----------------------',res.data)
+//   })
+// },[])

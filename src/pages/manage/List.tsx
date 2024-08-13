@@ -7,11 +7,7 @@ import ListSearch from '../../components/ListSearch'
 
 const { Title } = Typography
 
-
 export default function List() {
-
-
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [questionList, setQuestionList] = useState([
     {
