@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './QuestionCard.module.scss'
 import { Button, Divider, message, Modal, Popconfirm, Space, Tag } from 'antd'
 import {
@@ -10,6 +10,8 @@ import {
   StarOutlined
 } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
+import { useRequest } from 'ahooks'
+import { duplicateQuestionService, updateQuestionService } from '../services/question'
 
 type PropsType = {
   _id: string
@@ -27,61 +29,51 @@ export default function QuestionCard(props: PropsType) {
 
   const nav = useNavigate()
 
-  const buttons = [
-    {
-      icon: <StarOutlined />,
-      text: isStar ? '取消标星' : '标星',
-      handler: () => {}
+  // 修改标星按钮
+  const [isStarState, setStarState] = useState(isStar)
+  const { loading: changeStarLoading, run: changeStar } = useRequest(
+    async () => {
+      await updateQuestionService(_id, { isStar: !isStarState })
     },
     {
-      icon: <CopyOutlined />,
-      text: '复制',
-      handler: () => {
-        message.success('复制成功')
-      }
-    },
-    {
-      icon: <DeleteOutlined />,
-      text: '删除',
-      handler: () => {
-        confirm({
-          title: '确认删除该问卷？',
-          icon: <ExclamationCircleOutlined />,
-          onOk: () => {
-            message.success('删除成功')
-          }
-        })
+      manual: true,
+      onSuccess: () => {
+        setStarState(!isStarState) // 修改状态，更新页面
+        message.success('已更新')
       }
     }
-  ]
-
-  const ButtonsElem = (
-    <Space>
-      {buttons.map((item, index) => {
-        const { text, icon, handler } = item
-        return (
-          <span key={index}>
-            {text === '复制' ? (
-              <Popconfirm
-                title="确认删除吗？"
-                okText="确认"
-                cancelText="取消"
-                onConfirm={() => handler()}
-              >
-                <Button type="text" icon={icon} size="small">
-                  {text}
-                </Button>
-              </Popconfirm>
-            ) : (
-              <Button type="text" size="small" icon={icon} onClick={() => handler()}>
-                {text}
-              </Button>
-            )}
-          </span>
-        )
-      })}
-    </Space>
   )
+
+  // 复制按钮
+  const { loading: duplicateLoading, run: handleDuplicate } = useRequest(
+    async () => await duplicateQuestionService(_id),
+    {
+      manual: true,
+      onSuccess: res => {
+        message.success('复制成功')
+        const { id } = res
+        if (id) {
+          nav(`/question/edit/${id}`)
+        }
+      }
+    }
+  )
+
+  // 删除按钮
+  const [isDeleted, setIsDeleted] = useState(false)
+  const { loading: deleteLoading, run: handleDelete } = useRequest(
+    async () => await updateQuestionService(_id, { isDeleted: true }),
+    {
+      manual: true,
+      onSuccess: () => {
+        message.success('删除成功')
+        setIsDeleted(true)
+      }
+    }
+  )
+
+  // 对于已经删除的问卷，不再显示
+  if (isDeleted) return null
 
   return (
     <div className={styles.container}>
@@ -89,7 +81,7 @@ export default function QuestionCard(props: PropsType) {
         <div className={styles.left}>
           <Link to={`/question/${isPublished ? 'stat' : 'edit'}/${_id}`}>
             <Space>
-              {isStar && <StarOutlined style={{ color: '#fadb14' }} />}
+              {isStarState && <StarOutlined style={{ color: '#fadb14' }} />}
               {title}
             </Space>
           </Link>
@@ -125,7 +117,44 @@ export default function QuestionCard(props: PropsType) {
             </Button>
           </Space>
         </div>
-        <div className={styles.right}>{ButtonsElem}</div>
+        <div className={styles.right}>
+          <Space>
+            <Button
+              type="text"
+              size="small"
+              icon={<StarOutlined />}
+              onClick={changeStar}
+              disabled={changeStarLoading}
+            >
+              {isStarState ? '取消标星' : '标星'}
+            </Button>
+            <Popconfirm
+              title="确认要复制该问卷？"
+              okText="确认"
+              cancelText="取消"
+              onConfirm={handleDuplicate}
+            >
+              <Button type="text" size="small" icon={<CopyOutlined />} disabled={duplicateLoading}>
+                复制
+              </Button>
+            </Popconfirm>
+            <Button
+              type="text"
+              size="small"
+              icon={<DeleteOutlined />}
+              disabled={deleteLoading}
+              onClick={() => {
+                confirm({
+                  title: '确认删除该问卷？',
+                  icon: <ExclamationCircleOutlined />,
+                  onOk: handleDelete
+                })
+              }}
+            >
+              删除
+            </Button>
+          </Space>
+        </div>
       </div>
     </div>
   )
