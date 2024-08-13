@@ -103,7 +103,9 @@ export default function Trash() {
         )}
       </div>
       <div className={styles.pagination}>
-        <ListPage total={total} />
+        <span style={{ display: !loading ? 'block' : 'none' }}>
+          <ListPage total={total} />
+        </span>
       </div>
     </>
   )

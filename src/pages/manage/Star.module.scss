@@ -12,11 +12,9 @@
     }
 }
 
-.content{
+.content {}
 
-}
-
-.pagination{
-    text-align: center;
-    color: 000000e0;
+.pagination {
+    display: flex;
+    justify-content: center;
 }

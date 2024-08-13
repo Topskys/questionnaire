@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './list.module.scss'
+import styles from './Star.module.scss'
 import QuestionCard from '../../components/QuestionCard'
 import { useTitle } from 'ahooks'
 import { Empty, Typography } from 'antd'
@@ -39,7 +39,9 @@ export default function Star() {
         )}
       </div>
       <div className={styles.pagination}>
-        <ListPage total={total} />
+        <span style={{ display: !loading ? 'block' : 'none' }}>
+          <ListPage total={total} />
+        </span>
       </div>
     </>
   )
