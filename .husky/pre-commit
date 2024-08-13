@@ -4,7 +4,7 @@
 npm run format
 
 # 检查忽略代码
-# npx lint-staged
+npx lint-staged
 
 # eslint代码质量检查
 # npm run lint
