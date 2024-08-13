@@ -1,25 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './list.module.scss'
 import QuestionCard from '../../components/QuestionCard'
 import { useTitle } from 'ahooks'
 import { Empty, Typography } from 'antd'
 import ListSearch from '../../components/ListSearch'
+import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
+import Loading from '../../components/Loading'
 
 const { Title } = Typography
 
 export default function Star() {
   useTitle('芮艾格德问卷 - 星标问卷')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [questionList, setQuestionList] = useState([
-    {
-      _id: '1ew',
-      title: '问卷1',
-      isStar: true,
-      isPublished: false,
-      answerCount: 0,
-      createdAt: '2024-08-12'
-    }
-  ])
+
+  const { loading, data = {} } = useLoadQuestionListData({ isStar: true })
+  const { total = 0, list = [] } = data
 
   return (
     <>
@@ -32,8 +26,10 @@ export default function Star() {
         </div>
       </div>
       <div className={styles.content}>
-        {questionList.length > 0 ? (
-          questionList.map(q => {
+        {loading ? (
+          <Loading />
+        ) : list.length > 0 ? (
+          list.map(q => {
             const { _id } = q
             return <QuestionCard key={_id} {...q} />
           })
@@ -41,7 +37,7 @@ export default function Star() {
           <Empty description="暂无数据" />
         )}
       </div>
-      <div className={styles.pagination}>分页</div>
+      <div className={styles.pagination}>分页{total}</div>
     </>
   )
 }

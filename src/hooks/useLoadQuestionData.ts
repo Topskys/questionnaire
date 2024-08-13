@@ -10,6 +10,19 @@ function useLoadQuestionData() {
   const { id = '' } = useParams()
   const dispatch = useDispatch()
 
+  // 已被ahooks的useRequest取代
+  // const [loading, setLoading] = useState(true)
+  // const [questionData, setQuestionData] = useState({})
+  // useEffect(() => {
+  //   async function fn() {
+  //     const data = await getQuestionService(id)
+  //     setQuestionData(data)
+  //     setLoading(false)
+  //   }
+  //   fn()
+  // }, [])
+  // return { loading, questionData }
+
   // 手动ajax加载
   const { data, loading, error, run } = useRequest(
     async (id: string) => {

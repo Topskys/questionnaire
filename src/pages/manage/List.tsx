@@ -1,26 +1,34 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './list.module.scss'
 import QuestionCard from '../../components/QuestionCard'
 import { useTitle } from 'ahooks'
-import { Typography } from 'antd'
+import { Empty, Typography } from 'antd'
 import ListSearch from '../../components/ListSearch'
+import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
+import Loading from '../../components/Loading'
 
 const { Title } = Typography
 
 export default function List() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [questionList, setQuestionList] = useState([
-    {
-      _id: '1ew',
-      title: '问卷1',
-      isStar: true,
-      isPublished: false,
-      answerCount: 0,
-      createdAt: '2024-08-12'
-    }
-  ])
-
   useTitle('芮艾格德问卷 - 我的问卷')
+
+  // const [list, setList] = useState([])
+  // const [total, setTotal] = useState(0)
+  // useEffect(() => {
+  //   async function load() {
+  //     const data = await getQuestionListService()
+  //     const { total = 0, list = [] } = data
+  //     setList(list)
+  //     setTotal(total)
+  //   }
+  //   load()
+  // }, [])
+
+  // 取代上面的useEffect片段
+  // const { loading, data = {} } = useRequest(getQuestionListService)
+  // 使用hooks代替
+  const { loading, data = {} } = useLoadQuestionListData({})
+  const { total = 0, list = [] } = data
 
   return (
     <>
@@ -33,13 +41,18 @@ export default function List() {
         </div>
       </div>
       <div className={styles.content}>
-        {questionList.length > 0 &&
-          questionList.map((q, i) => {
+        {loading ? (
+          <Loading />
+        ) : list.length > 0 ? (
+          list.map(q => {
             const { _id } = q
-            return <QuestionCard key={_id + i} {...q} />
-          })}
+            return <QuestionCard key={_id} {...q} />
+          })
+        ) : (
+          <Empty description="暂无数据" />
+        )}
       </div>
-      <div className={styles.pagination}>load more...</div>
+      <div className={styles.pagination}>load more...{total}</div>
     </>
   )
 }

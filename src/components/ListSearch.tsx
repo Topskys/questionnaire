@@ -42,7 +42,7 @@ export default function ListSearch() {
         enterButton="Search"
         size="large"
         allowClear
-        style={{ width: 200 }}
+        style={{ width: 300 }}
       />
     </div>
   )
