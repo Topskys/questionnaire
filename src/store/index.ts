@@ -1,10 +1,11 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import undoable, { excludeAction, StateWithHistory } from 'redux-undo'
+import userReducer, { UserStateType } from './slice/user'
 import componentsReducer, { ComponentsStateType } from './slice/components'
 import pageInfoReducer, { PageInfoType } from './slice/pageInfo'
 
 export type StateType = {
-  // user: UserStateType
+  user: UserStateType
   // 编辑页组件列表 没有redux-undo
   // components: ComponentsStateType
   components: StateWithHistory<ComponentsStateType> // 增加了 undo
@@ -23,7 +24,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 
 const store = configureStore({
   reducer: {
-    // user:userReducer,
+    user: userReducer,
     // no redux-undo
     // components: componentsReducer,
     // add redux-undo

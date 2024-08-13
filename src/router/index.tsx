@@ -84,3 +84,13 @@ export const HOME_PATHNAME = '/'
 export const LOGIN_PATHNAME = '/login'
 export const REGISTER_PATHNAME = '/register'
 export const MANAGE_INDEX_PATHNAME = '/manage/list'
+
+// ------ 路由登录验证判断 ------
+
+export function isLoginOrRegister(pathname: string) {
+  return [LOGIN_PATHNAME, REGISTER_PATHNAME].includes(pathname)
+}
+
+export function isNoNeedUserInfo(pathname: string) {
+  return [HOME_PATHNAME, LOGIN_PATHNAME, REGISTER_PATHNAME].includes(pathname)
+}
