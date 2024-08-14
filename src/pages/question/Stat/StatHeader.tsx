@@ -48,7 +48,7 @@ export default function StatHeader() {
   // }
 
   /**
-   * 优化：使用useMemo缓存生成链接和二维码组件
+   * 优化：使用useMemo缓存生成链接和二维码组件（缓存数据）
    * 什么时候使用useMemo?
    * 1. 依赖项不经常发生变化
    * 2. 缓存的元素创建成本高

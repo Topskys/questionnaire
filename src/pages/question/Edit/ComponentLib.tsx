@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useCallback } from 'react'
 import { Typography } from 'antd'
 import { useDispatch } from 'react-redux'
 import { nanoid } from 'nanoid'
@@ -12,7 +12,23 @@ function getComponent(c: ComponentConfType) {
   const { title, type, Component, defaultProps } = c
   const dispatch = useDispatch()
 
-  function handleClick() {
+  // function handleClick() {
+  //   // 将左侧组件添加到画布
+  //   dispatch(
+  //     addComponent({
+  //       fe_id: nanoid(),
+  //       title,
+  //       type,
+  //       props: defaultProps // 根据组件类型设置默认属性
+  //     })
+  //   )
+  // }
+
+  /**
+   * useCallback专用于缓存函数
+   * 优化：使用useCallback缓存新增组件实例函数
+   */
+  const handleClick = useCallback(() => {
     // 将左侧组件添加到画布
     dispatch(
       addComponent({
@@ -22,7 +38,7 @@ function getComponent(c: ComponentConfType) {
         props: defaultProps // 根据组件类型设置默认属性
       })
     )
-  }
+  }, [])
 
   return (
     <div key={type} className={styles.wrapper} onClick={handleClick}>
