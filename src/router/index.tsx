@@ -11,6 +11,7 @@ import Star from '../pages/manage/Star'
 import Trash from '../pages/manage/Trash'
 import Edit from '../pages/question/Edit'
 import Stat from '../pages/question/Stat'
+import Example from '../examples'
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
         element: <Stat />
       }
     ]
+  },
+  {
+    path: 'example', // 测试demo
+    element: <Example />
   }
 ])
 

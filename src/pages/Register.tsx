@@ -104,11 +104,7 @@ export default function Register() {
           >
             <Input.Password placeholder="请输入确认密码" />
           </Form.Item>
-          <Form.Item
-            label="昵称"
-            name="nickname"
-            rules={[{ required: true, message: '昵称不能为空' }]}
-          >
+          <Form.Item label="昵称" name="nickname">
             <Input placeholder="请输入用户昵称" />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 7, span: 16 }}>
