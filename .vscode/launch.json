@@ -1,0 +1,18 @@
+{
+    /*
+    * 在vsCode中调式代码配置 
+    * 1. 配置该文件
+    * 2. npm启动项目，在vsCode中按F5启动调试（npm run start ---> 点击vscode小甲虫（运行和调式））
+    */
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "chrome-test", // 配置名称
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3000", // 项目启动地址
+            "webRoot": "${workspaceFolder}/src", // 工程目录
+            "runtimeExecutable": "C:/Program Files/Google/Chrome/Application/chrome.exe" // 启动Chrome调式代码
+        }
+    ]
+}
