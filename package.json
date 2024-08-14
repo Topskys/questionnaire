@@ -43,7 +43,8 @@
     "format1": "prettier --config .prettierrc '.' --write",
     "format-watch": "onchange -d 1000 '**/*' -- prettier --config .prettierrc --write {{changed}}",
     "prepare": "husky",
-    "commit": "cz"
+    "commit": "cz",
+    "analyze": "react-scripts build && source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
     "extends": [
@@ -61,7 +62,6 @@
           "@typescript-eslint/no-require-imports": "off",
           "no-unused-vars": "off",
           "@typescript-eslint/no-var-requires": 0
-          
         }
       }
     ]
@@ -97,6 +97,7 @@
     "onchange": "^7.1.0",
     "prettier": "^3.3.3",
     "sass": "^1.77.8",
+    "source-map-explorer": "^2.5.3",
     "typescript-eslint": "^8.0.1"
   }
 }
