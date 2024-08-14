@@ -11,7 +11,7 @@ import Loading from '../components/Loading'
 const { Header, Content, Footer } = Layout
 
 export default function MainLayout() {
-  // 加载用户数据
+  // 检查用户登录，加载用户数据
   const { waitingUserData } = useLoadUserData()
   useNavPage(waitingUserData)
 

@@ -8,6 +8,10 @@ import {
   isNoNeedUserInfo
 } from '../router'
 
+/**
+ * 判断用户登录信息
+ * @param waitingUserData 是否正在获取用户信息
+ */
 function useNavPage(waitingUserData: boolean) {
   const nav = useNavigate()
   const { pathname } = useLocation()
