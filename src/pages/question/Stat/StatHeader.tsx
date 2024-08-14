@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useMemo, useRef } from 'react'
 import styles from './style/StatHeader.module.scss'
 import { Button, Input, InputRef, message, Popover, Space, Tooltip, Typography } from 'antd'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -23,7 +23,37 @@ export default function StatHeader() {
     message.success('拷贝成功')
   }
 
-  function genLinkAndQrCodeElement() {
+  // function genLinkAndQrCodeElement() {
+  //   if (!isPublished) return null
+  //   // 需要参考C端的规则 生成URL二维码
+  //   const url = `http://localhost:3000/question/${id}`
+
+  //   const QrCodeElem = (
+  //     <div style={{ textAlign: 'center' }}>
+  //       <QrCode value={url} size={150} />
+  //     </div>
+  //   )
+
+  //   return (
+  //     <Space>
+  //       <Input value={url} style={{ width: '300px' }} ref={urlInputRef} />
+  //       <Tooltip title="拷贝链接">
+  //         <Button icon={<CopyOutlined />} onClick={handleCopy} />
+  //       </Tooltip>
+  //       <Popover content={QrCodeElem} placement="bottom">
+  //         <Button icon={<QrcodeOutlined />}></Button>
+  //       </Popover>
+  //     </Space>
+  //   )
+  // }
+
+  /**
+   * 优化：使用useMemo缓存生成链接和二维码组件
+   * 什么时候使用useMemo?
+   * 1. 依赖项不经常发生变化
+   * 2. 缓存的元素创建成本高
+   */
+  const memoLinkAndQrCodeElem = useMemo(() => {
     if (!isPublished) return null
     // 需要参考C端的规则 生成URL二维码
     const url = `http://localhost:3000/question/${id}`
@@ -45,7 +75,7 @@ export default function StatHeader() {
         </Popover>
       </Space>
     )
-  }
+  }, [isPublished, id])
 
   return (
     <div className={styles['header-wrapper']}>
@@ -60,7 +90,7 @@ export default function StatHeader() {
             </Title>
           </Space>
         </div>
-        <div className={styles.main}>{genLinkAndQrCodeElement()}</div>
+        <div className={styles.main}>{memoLinkAndQrCodeElem}</div>
         <div className={styles.right}>
           <Button
             type="primary"

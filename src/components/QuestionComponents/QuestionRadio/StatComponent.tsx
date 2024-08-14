@@ -8,7 +8,10 @@ function format(n: number) {
 }
 
 const StatComponent: FC<QuestionRadioStatPropsType> = ({ stat = [] }) => {
-  // count 求和
+  /**
+   * count 求和
+   * 优化：使用useMemo缓存计算，当依赖变化才重新计算
+   */
   const sum = useMemo(() => {
     // 缓存计算
     let s = 0
